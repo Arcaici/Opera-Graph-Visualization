@@ -15,7 +15,8 @@ grafi:
 #### Nodi
 * id: città
 * contengono :
-  * posizione: [ longitudine, latitudine ]  
+  * posizione: [ longitudine, latitudine ] 
+* colore: univoco per ogni stato. {si potrebbe fare}.
 #### Archi Diretti
 * id: coppia(opera, anno)
 * contengono :
@@ -45,6 +46,7 @@ Quando l'utente esegue un evento OnClik su un nodo viene generato un grafo force
   * opera: nome opera
   * anno: anno dell'esibizione nel nodo sorgente
 * colore: ogni arco è rappresentata con un colore specifico che identifica l'anno in modo univoco.
+* dimensione: gli archi tra librettisti sono di uno spessore più grande rispetto agli archi tra librettista e compositore.
 #### Interazioni
 Quando avviene un evento di mouseOver su un arco viene visualizzata un etichetta contenente l'anno/i dell'avveninmento delle/a performance.  
 

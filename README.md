@@ -15,7 +15,7 @@ grafi:
 #### Nodi
 * id: città
 * contengono :
-  * posizione[longitudine, latitudine]  
+  * posizione: [ longitudine, latitudine ]  
 #### Archi Diretti
 * id: coppia(opera, anno)
 * contengono :
@@ -25,7 +25,7 @@ grafi:
 #### Interazioni
 Quando avviene un evento di mouseOver su un arco viene visualizzata un etichetta contenente l'anno/i dell'avveninmento delle/a performance.  
 
-Quando l'utente esegue un evento clik su un nodo viene generato un grafo force directed che ha come nodi i librettisti e i compositori di tutte le opere(archi entranti e uscenti) che sono state fatte all'interno di quella città.
+Quando l'utente esegue un evento OnClik su un nodo viene generato un grafo force directed che ha come nodi i librettisti e i compositori di tutte le opere(archi entranti e uscenti univoci rispetto alle opere.) che sono state fatte all'interno di quella città.
 
 ## Grafo Force directed
 

@@ -20,7 +20,7 @@ grafi:
 * id: coppia(opera, anno)
 * contengono :
   * opera: nome opera
-  * anno: anno dell'esibizione nel nodo sorgente
+  * anno: anno dell'esibizione del nodo sorgente e del nodo destinatario
 * colore: ogni arco è rappresentata con un colore specifico che identifica l'opera in modo univoco.
 #### Interazioni
 Quando avviene un evento di mouseOver su un arco viene visualizzata un etichetta contenente l'anno/i dell'avveninmento delle/a performance.  

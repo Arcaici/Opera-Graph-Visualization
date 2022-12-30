@@ -13,9 +13,10 @@ grafi:
 ### Struttura del grafo
 
 #### Nodi
-* id: città
+* id: nome_città
 * contengono :
-  * posizione: [ longitudine, latitudine ] 
+  * title: nome della città
+  * geometry: coordinate di tipo punto.
 * colore: univoco per ogni stato. {si potrebbe fare}.
 #### Archi Diretti
 * contengono :

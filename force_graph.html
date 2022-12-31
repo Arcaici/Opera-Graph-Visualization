@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+    .container-fluid {
+        background-color: lightgray;
+    }
+
+    #yearsLegend {
+        margin-top: 10px;
+        margin-bottom: 20px;
+        border: groove black 1px;
+    }
+
+    #nodesLegend {
+        padding: 50px;
+        margin-bottom: 20px;
+        border: groove black 1px;
+    }
+
+    .nodesLegendTd {
+        padding: 10px;
+    }
+
+    .nodesLegendElement {
+        height: 25px;
+        width: 25px;
+        border-radius: 50%;
+        display: inline-block;
+    }
+
+    .edgesInfo {
+        padding: 10px;
+        border: groove black 1px;
+    }
+
+    #reset {
+        margin-top: 20px;
+    }
+</style>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="utf-8" http-equiv="encoding">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Visualization Project </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://d3js.org/d3-selection-multi.v1.min.js"></script>
+</head>
+
+<body>
+
+    <!--########################## LAYOUT ##########################-->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-8 d-flex justify-content-center" id="svg"></div>
+            <div class="col-4">
+                <div class="col justify-content-center">
+                    <table class="w-100 text-center" id="yearsLegend">
+                    </table>
+                </div>
+                <div class="col justify-content-center">
+                    <table class="w-100 text-center" id="nodesLegend">
+                    </table>
+                </div>
+                <div class="col edgesInfo">
+                    <h3 id="h-titles">Interagisci con gli archi per ottenere i titoli a loro collegati</h3>
+                    <p id="titles"></p>
+                    <p id="source"></p>
+                    <p id="target"></p>
+                    <p id="n_performance"></p>
+                </div>
+                <div class="col w-100 text-center">
+                    <button id="reset" onclick="cleanInfo()">Resetta Info</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--########################## LOGIC ##########################-->
+    <script>
+
+        //--########################## legends setup logic ##########################--
+
+        //edges legend
+        function edgesLegend(legend) {
+            let table = document.getElementById("yearsLegend")
+            let tr
+            let td1
+            let td2
+            let hrline1
+            let hrline2
+
+            for (let i = 0; i < legend.length; i += 2) {
+
+                tr = document.createElement("tr")
+                td1 = document.createElement("td")
+                td2 = document.createElement("td")
+
+                td1.style.background = legend[i].color
+                td1.innerHTML = legend[i].year
+
+                if (legend[i + 1]) {
+                    td2.style.background = legend[i + 1].color
+                    td2.innerHTML = legend[i + 1].year
+                } else {
+                    td2.innerHTML = "Nan"
+                }
+
+                tr.appendChild(td1)
+                tr.appendChild(td2)
+                table.appendChild(tr)
+            }
+        }
+
+        //nodes legend
+        function nodesLegend(nodesTypes, color) {
+
+            let table = document.getElementById("nodesLegend")
+            let tr;
+            let td1;
+            let td2;
+            let circle;
+
+            for (let i = 0; i <= 2; i++) {
+
+                tr = document.createElement("tr")
+                td1 = document.createElement("td")
+                td2 = document.createElement("td")
+                circle = document.createElement("span");
+
+                td1.innerHTML = nodesTypes[i]
+
+                circle.setAttribute("class", "nodesLegendElement");
+                circle.style.background = color[i];
+                circle.style.border = "solid white 1px";
+                td2.appendChild(circle);
+
+                td1.setAttribute("class", "nodesLegendTd")
+                td2.setAttribute("class", "nodesLegendTd")
+
+                tr.appendChild(td1)
+                tr.appendChild(td2)
+                table.appendChild(tr)
+            }
+        }
+
+        //legends func
+        function forceLegend(legend, nodesTypes, color) {
+            edgesLegend(legend);
+            nodesLegend(nodesTypes, color);
+        }
+
+        //--########################## Coloring edges logic ##########################--
+
+        //unique values of years
+        function uniqueYear(links) {
+            let unique = [];
+            for (link of links) {
+                if (!unique.some(el => el.year == link.group)) {
+                    new_year = {
+                        'year': link.group,
+                        'color': 0
+                    }
+
+                    unique.push(new_year);
+                    new_color = false;
+                    id = unique.findIndex(el => el.color == 0);
+                    while (!new_color) {
+                        let color = "#" + Math.floor(Math.random() * 16777215).toString(16);
+                        console.log(color);
+                        if (unique.find(el => el.color == color) == undefined && color != "#bc300" && color != "#de288" && color != "#d3d3d3") {
+                            unique.at(id).color = color;
+                            new_color = true;
+                        }
+                    }
+                }
+            }
+            return unique;
+        }
+
+        //--########################## edges Info and color logic ##########################--
+
+        function resetCircleColor(source, target) {
+            let highlighted_lib = document.getElementById(source);
+            let highlighted_comp = document.getElementById(target);
+            highlighted_lib.setAttribute("fill", "#f28e2c");
+            highlighted_comp.setAttribute("fill", "#4e79a7");
+        }
+        function showTitles(d) {
+
+            let h_title = document.getElementById("h-titles");
+            let line = document.getElementById(d.path[0].__data__.id);
+            let titles = document.getElementById("titles");
+            let source = document.getElementById("source");
+            let target = document.getElementById("target");
+            let n_performance = document.getElementById("n_performance");
+            let highlighted_lib = document.getElementById(line.getAttribute("id").split(",")[0]);
+            let highlighted_comp = document.getElementById(line.getAttribute("id").split(",")[1]);
+
+            if (h_title.innerHTML == "Titoli:") {
+                resetCircleColor(
+                    source.innerHTML.replace("<b>Librettista: </b>", ""),
+                    target.innerHTML.replace("<b>Compositore: </b>", "")
+                );
+            }
+
+            h_title.innerHTML = "Titoli:";
+            titles.innerHTML = line.getAttribute("name").replaceAll(",", ", ");
+            let temp = line.getAttribute("id").split(",");
+            let performance = line.getAttribute("name").split(",").length;
+
+            source.innerHTML = "<b>Librettista: </b>" + temp[0];
+            target.innerHTML = "<b>Compositore: </b>" + temp[1];
+            n_performance.innerHTML = "<b>Opere totali: </b>" + performance;
+
+            highlighted_lib.setAttribute("fill", "#FF0000");
+            highlighted_comp.setAttribute("fill", "#FF0000");
+        }
+
+        //--########################## Cleaning Info ##########################--
+
+        function cleanInfo() {
+            let h_title = document.getElementById("h-titles");
+            let titles = document.getElementById("titles");
+            let source = document.getElementById("source");
+            let target = document.getElementById("target");
+            let n_performance = document.getElementById("n_performance");
+
+            if (h_title.innerHTML == "Titoli:") {
+                resetCircleColor(
+                    source.innerHTML.replace("<b>Librettista: </b>", ""),
+                    target.innerHTML.replace("<b>Compositore: </b>", "")
+                );
+            }
+            h_title.innerHTML="Interagisci con gli archi per ottenere i titoli a loro collegati";
+            titles.innerHTML = "";
+            source.innerHTML="";
+            target.innerHTML="";
+            n_performance.innerHTML="";
+        }
+
+        //--########################## Force Layout Logic ##########################--
+
+        //data
+        const nodes = [{ "id": "Metastasio Pietro", "group": "librettista" }, { "id": "Paisiello Giovanni", "group": "compositore" }, { "id": "Rossi Gaetano", "group": "librettista" }, { "id": "Mayr Johann Simon", "group": "compositore" }, { "id": "Anfossi Pasquale", "group": "compositore" }, { "id": "Piccinni Niccolò", "group": "compositore" }, { "id": "Cimarosa Domenico", "group": "compositore" }, { "id": "Da Ponte Lorenzo", "group": "librettista" }, { "id": "Salieri Antonio", "group": "compositore" }, { "id": "Bertati Giovanni", "group": "librettista" }, { "id": "Mozart Wolfgang Amadeus", "group": "compositore" }, { "id": "Calzabigi Ranieri de", "group": "librettista" }, { "id": "Meyerbeer Giacomo", "group": "compositore" }, { "id": "Sografi Simeone Antonio", "group": "librettista" }, { "id": "Martín y Soler Vicente", "group": "compositore" }, { "id": "Goldoni Carlo", "group": "librettista" }, { "id": "Mazzolà Caterino", "group": "librettista" }, { "id": "Rossini Gioachino", "group": "compositore" }];
+        const links = [{ "source": "Metastasio Pietro", "target": "Paisiello Giovanni", "name": "Achille in Sciro,Alcide al bivio,Antigono,Catone in Utica,Didone abbandonata,Il Demetrio,Il Demofoonte,Nitteti,Olimpiade", "weight": 13, "group": "1775" }, { "source": "Rossi Gaetano", "target": "Mayr Johann Simon", "name": "Adelaide di Guesclino,Che originali,Elisa,Eraldo ed Emma,Ginevra di Scozia,Gli sciti,I cherusci,L' Amor coniugale,La roccia di Frauenstein", "weight": 21, "group": "1798" }, { "source": "Metastasio Pietro", "target": "Anfossi Pasquale", "name": "Adriano in Siria,Antigono,Artaserse,Didone abbandonata,Ezio,Nitteti,Olimpiade", "weight": 8, "group": "1775" }, { "source": "Metastasio Pietro", "target": "Mayr Johann Simon", "name": "Adriano in Siria", "weight": 1, "group": "1798" }, { "source": "Metastasio Pietro", "target": "Piccinni Niccolò", "name": "Alessandro nell'Indie,Artaserse,Didone abbandonata", "weight": 3, "group": "1775" }, { "source": "Metastasio Pietro", "target": "Cimarosa Domenico", "name": "Alessandro nell'Indie,Artaserse,Caio Mario,L'eroe cinese,L'Olimpiade,Olimpiade", "weight": 8, "group": "1780" }, { "source": "Da Ponte Lorenzo", "target": "Salieri Antonio", "name": "Axur re d'Ormus,Il talismano,La cifra", "weight": 16, "group": "1786" }, { "source": "Bertati Giovanni", "target": "Anfossi Pasquale", "name": "Azor re di Kibinga,Il curioso indiscreto,Il geloso in cimento,Il matrimonio per inganno,Isabella e Rodrigo,L' Avaro,La forza delle donne,L'imbroglio delle tre spose,Lo sposo disperato", "weight": 26, "group": "1775" }, { "source": "Da Ponte Lorenzo", "target": "Mozart Wolfgang Amadeus", "name": "Così fan tutte,Don Giovanni,Le nozze di Figaro", "weight": 28, "group": "1786" }, { "source": "Calzabigi Ranieri de", "target": "Paisiello Giovanni", "name": "Elfrida,Elvira", "weight": 8, "group": "1782" }, { "source": "Rossi Gaetano", "target": "Meyerbeer Giacomo", "name": "Emma di Resburgo,Il crociato in Egitto", "weight": 4, "group": "1819" }, { "source": "Sografi Simeone Antonio", "target": "Cimarosa Domenico", "name": "Gli Orazi ed i Curiazi", "weight": 6, "group": "1786" }, { "source": "Bertati Giovanni", "target": "Paisiello Giovanni", "name": "I Filosofi immaginari,La locanda", "weight": 8, "group": "1779" }, { "source": "Da Ponte Lorenzo", "target": "Martín y Soler Vicente", "name": "Il burbero di buon cuore,La scuola dei maritati,L'arbore di Diana,Una cosa rara", "weight": 26, "group": "1783" }, { "source": "Goldoni Carlo", "target": "Paisiello Giovanni", "name": "Il finto principe,Il mondo della luna", "weight": 3, "group": "1775" }, { "source": "Goldoni Carlo", "target": "Anfossi Pasquale", "name": "Il geloso in cimento,L’incognita perseguitata", "weight": 3, "group": "1775" }, { "source": "Bertati Giovanni", "target": "Cimarosa Domenico", "name": "Il matrimonio segreto", "weight": 8, "group": "1792" }, { "source": "Metastasio Pietro", "target": "Mozart Wolfgang Amadeus", "name": "Il re pastore", "weight": 1, "group": "1775" }, { "source": "Mazzolà Caterino", "target": "Piccinni Niccolò", "name": "Il servo padrone", "weight": 1, "group": "1794" }, { "source": "Goldoni Carlo", "target": "Salieri Antonio", "name": "Il talismano", "weight": 2, "group": "1779" }, { "source": "Metastasio Pietro", "target": "Martín y Soler Vicente", "name": "Ipermestra", "weight": 1, "group": "1780" }, { "source": "Goldoni Carlo", "target": "Piccinni Niccolò", "name": "La buona figliuola", "weight": 4, "group": "1777" }, { "source": "Mazzolà Caterino", "target": "Mozart Wolfgang Amadeus", "name": "La clemenza di Tito", "weight": 7, "group": "1791" }, { "source": "Calzabigi Ranieri de", "target": "Anfossi Pasquale", "name": "La finta giardiniera", "weight": 4, "group": "1775" }, { "source": "Mazzolà Caterino", "target": "Salieri Antonio", "name": "La scuola de' gelosi", "weight": 2, "group": "1778" }, { "source": "Goldoni Carlo", "target": "Cimarosa Domenico", "name": "La vanità delusa", "weight": 1, "group": "1784" }, { "source": "Sografi Simeone Antonio", "target": "Mayr Johann Simon", "name": "Saffo,Telemaco nell'isola di Calipso", "weight": 2, "group": "1794" }, { "source": "Rossi Gaetano", "target": "Rossini Gioachino", "name": "Semiramide,Tancredi", "weight": 5, "group": "1813" }];
+
+        //legends
+        const legend = uniqueYear(links);
+        const nodesTypes = ["Librettista", "Compositore", "Evidenziato"];
+        const color = ["#f28e2c", "#4e79a7", "#FF0000"];
+        forceLegend(legend, nodesTypes, color);
+
+        //Force Graph func declaration
+        function ForceGraph({
+            nodes, // an iterable of node objects (typically [{id}, …])
+            links // an iterable of link objects (typically [{source, target}, …])
+        }, {
+            nodeId = d => d.id, // given d in nodes, returns a unique identifier (string)
+            nodeGroup, // given d in nodes, returns an (ordinal) value for color
+            nodeGroups, // an array of ordinal values representing the node groups
+            nodeTitle, // given d in nodes, a title string
+            nodeFill = "currentColor", // node stroke fill (if not using a group color encoding)
+            nodeStroke = "#fff", // node stroke color
+            nodeStrokeWidth = 1, // node stroke width, in pixels
+            nodeStrokeOpacity = 1, // node stroke opacity
+            nodeRadius = 13, // node radius, in pixels
+            nodeStrength,
+            linkId = ({ source, target }) => source + "," + target,
+            linkSource = ({ source }) => source, // given d in links, returns a node identifier string
+            linkTarget = ({ target }) => target, // given d in links, returns a node identifier string
+            linkName = ({ name }) => name,
+            linkStroke = "#999", // link stroke color
+            linkStrokeOpacity = 1, // link stroke opacity
+            linkStrokeWidth = 1.5, // given d in links, returns a stroke width in pixels
+            linkStrokeLinecap = "round", // link stroke linecap
+            linkStrength,
+            colors = d3.schemeTableau10, // an array of color strings, for the node groups
+            width = 400, // outer width, in pixels
+            height = 400, // outer height, in pixels
+            invalidation // when this promise resolves, stop the simulation
+        } = {}) {
+
+            // Compute values.
+            const N = d3.map(nodes, nodeId).map(intern);
+            const LI = d3.map(links, linkId).map(intern);
+            const LS = d3.map(links, linkSource).map(intern);
+            const LT = d3.map(links, linkTarget).map(intern);
+            const LN = d3.map(links, linkName).map(intern);
+            if (nodeTitle === undefined) nodeTitle = (_, i) => N[i];
+            const T = nodeTitle == null ? null : d3.map(nodes, nodeTitle);
+            const G = nodeGroup == null ? null : d3.map(nodes, nodeGroup).map(intern);
+            const W = typeof linkStrokeWidth !== "function" ? null : d3.map(links, linkStrokeWidth);
+            const L = typeof linkStroke !== "function" ? null : d3.map(links, linkStroke);
+
+            // Replace the input nodes and links with mutable objects for the simulation.
+            nodes = d3.map(nodes, (_, i) => ({ id: N[i] }));
+            links = d3.map(links, (_, i) => ({ source: LS[i], target: LT[i], name: LN[i], id: LI[i] }));
+
+            // Compute default domains.
+            if (G && nodeGroups === undefined) nodeGroups = d3.sort(G);
+
+            // Construct the scales.
+            const color = nodeGroup == null ? null : d3.scaleOrdinal(nodeGroups, colors);
+
+            // Construct the forces.
+            const forceNode = d3.forceManyBody();
+            const forceLink = d3.forceLink(links).id(({ index: i }) => N[i]);
+            const forceCollide = d3.forceCollide().radius(d => d.radius + 10).strength(0.8);
+            if (nodeStrength !== undefined) forceNode.strength(nodeStrength);
+            if (linkStrength !== undefined) forceLink.strength(linkStrength);
+
+            var simulation = d3.forceSimulation(nodes)
+                .force("link", forceLink)
+                .force("charge", forceNode.strength(-500))
+                .force("center", d3.forceCenter())
+                .force("collide", forceCollide)
+                .force("x", d3.forceX().x(d => d.x))
+                .force("y", d3.forceY().y(d => d.y))
+                .nodes(nodes)
+                .on("tick", ticked);
+
+            var svg = d3.create("svg")
+                .attr("width", width)
+                .attr("height", height)
+                .attr("viewBox", [-width / 2, -height / 2, width, height])
+
+
+            var link = svg.append("g")
+                .attr("stroke", typeof linkStroke !== "function" ? linkStroke : null)
+                .attr("stroke-opacity", linkStrokeOpacity)
+                .attr("stroke-width", typeof linkStrokeWidth !== "function" ? linkStrokeWidth : null)
+                .attr("stroke-linecap", linkStrokeLinecap)
+                .selectAll("line")
+                .data(links)
+                .join("line")
+                .on("click", function (d) { showTitles(d) });
+
+            var node = svg.append("g")
+                .attr("fill", nodeFill)
+                .attr("stroke", nodeStroke)
+                .attr("stroke-opacity", nodeStrokeOpacity)
+                .attr("stroke-width", nodeStrokeWidth)
+                .selectAll("circle")
+                .data(nodes)
+                .join("circle")
+                .on("mouseover", function (d) {
+                    d3.select(d.id).style("visibility", "visible")
+                })
+                .on("mouseout", function (d) {
+                    d3.select(d.id).style("visibility", "hidden")
+                })
+                .attr("r", nodeRadius)
+                .attr("id", function (d) { return d.id })
+                .call(drag(simulation));
+
+            if (W) link.attr("stroke-width", ({ index: i }) => W[i]);
+            if (L) link.attr("stroke", ({ index: i }) => L[i]);
+            if (G) node.attr("fill", ({ index: i }) => color(G[i]));
+            if (T) node.append("title").text(({ index: i }) => T[i]);
+            if (invalidation != null) invalidation.then(() => simulation.stop());
+
+            // specify a function that returns the group of a node
+            const getGroup = d => d.group;
+
+            // specify a function that returns the radius of a node
+            const getRadius = d => d.radius;
+
+            function intern(value) {
+                return value !== null && typeof value === "object" ? value.valueOf() : value;
+            }
+
+            function ticked() {
+                link
+                    .attr("id", d => d.id)
+                    .attr("x1", d => d.source.x)
+                    .attr("y1", d => d.source.y)
+                    .attr("x2", d => d.target.x)
+                    .attr("y2", d => d.target.y)
+                    .attr("name", d => d.name);
+
+                node
+                    .attr("cx", d => d.x)
+                    .attr("cy", d => d.y);
+            }
+
+            function drag(simulation) {
+                function dragstarted(event) {
+                    if (!event.active) simulation.alphaTarget(0.3).restart();
+                    event.subject.fx = event.subject.x;
+                    event.subject.fy = event.subject.y;
+                }
+
+                function dragged(event) {
+                    event.subject.fx = event.x;
+                    event.subject.fy = event.y;
+                }
+
+                function dragended(event) {
+                    if (!event.active) simulation.alphaTarget(0);
+                    event.subject.fx = null;
+                    event.subject.fy = null;
+                }
+
+                return d3.drag()
+                    .on("start", dragstarted)
+                    .on("drag", dragged)
+                    .on("end", dragended);
+            }
+
+            return Object.assign(svg.node(), { scales: { color } });
+        }
+
+        //generation of Force Graph Layout
+        chart = ForceGraph({ nodes: nodes, links: links }, {
+            nodeId: d => d.id,
+            nodeTitle: d => d.id,
+            nodeGroup: d => d.group,
+            nodeTitle: d => `${d.id}\n${d.group}`,
+            linkName: d => d.name,
+            linkStroke: d => legend.find(el => el.year == d.group).color,
+            linkStrokeWidth: d => d.weight + 1,
+            width: (window.innerWidth *((1/12)*8)),
+            height: (window.innerHeight* 1)
+        })
+
+        //appending layout
+        document.getElementById("svg").appendChild(chart)
+
+    </script>
+</body>
+
+</html>

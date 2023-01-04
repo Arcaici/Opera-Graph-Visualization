@@ -1,15 +1,21 @@
 # Visualization Project
 
-Graph types:
-* Map graph
+## Authors
+- [Maiorani Simone](https://github.com/maioranisimone)
+- [Venturi Marco](https://github.com/Arcaici)
+
+## Introduction
+The project carried out aims to display information relating to a collection of opera performances that took place throughout Europe between 1775 and 1833.
+
+Types of graphs used:
+* Map graphs
 * Force Directed graph
 
-## Grafo a mappa
+## Map Graphs
+The map graph aims to focus on the cities where the opera took place. The nodes represent the cities while the edges between two nodes are present if and only if a opera was performed in both cities (the source and destination are established on the basis of the year in which the opera took place in the two cities).  
+A second map graph shows only a few cities that hosted a opera that took place nowhere else.
+The edges represent this common feature between the various cities in question.
 
-### Domanda
-* In che modo le performance hanno viaggiato geograficamente e nel tempo?
-* Come si sono spostate le opere durante il tempo?
-* Quali opere sono rimaste nello stesso posto e quali hanno attraversato l'Europa?
 
 ### Struttura del grafo
 

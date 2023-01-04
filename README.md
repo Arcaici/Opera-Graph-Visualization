@@ -33,6 +33,19 @@ Types of graphs used:
 * Map graphs
 * Force Directed graph
 
+## Libraries and Technologies
+Tecnologies:
+* [Node.js v18.0.0](https://nodejs.org/en/)
+* [Electron](https://www.electronjs.org/)
+
+Libraries:
+* [Bootstrap v5.2](https://getbootstrap.com/docs/5.2/getting-started/introduction/)
+* [D3.js v7](https://d3js.org/)
+* [amChart v5](https://www.amcharts.com/)
+
+## Question We Ask
+
+
 ## Map Graphs
 The map graph aims to focus on the cities where the opera took place.
 The nodes represent the cities while the edges between two nodes are present if and only if a opera was performed in both cities (the source and destination are established on the basis of the year in which the opera took place in the two cities).

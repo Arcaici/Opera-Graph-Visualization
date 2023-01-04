@@ -1,4 +1,4 @@
-# Visualization Project
+# Opera-Graph-Visualization
 
 ## Authors
 - [Maiorani Simone](https://github.com/maioranisimone)
@@ -28,12 +28,23 @@ The project carried out aims to display information relating to a collection of 
     },
     ...
 ```
+### Question We Asked
+Before Starting this adveture in first 800's, we asked to ourself what we would learn from these data. After some documentation about opera world we were curios about:
+
+* How operas move throught nations and time?
+* Which are the most important cities where operas are perform?
+* How librettist and composer worked toghether?
+* How many operas they made?
+* With how many composers a librettist can work and vice versa?
+* ...
+
+These are just some of the questions that we tried to answer using graph visualization.
 
 Types of graphs used:
 * Map graphs
 * Force Directed graph
 
-## Libraries and Technologies
+### Libraries and Technologies
 Tecnologies:
 * [Node.js v18.0.0](https://nodejs.org/en/)
 * [Electron](https://www.electronjs.org/)
@@ -42,9 +53,6 @@ Libraries:
 * [Bootstrap v5.2](https://getbootstrap.com/docs/5.2/getting-started/introduction/)
 * [D3.js v7](https://d3js.org/)
 * [amChart v5](https://www.amcharts.com/)
-
-## Question We Ask
-
 
 ## Map Graphs
 The map graph aims to focus on the cities where the opera took place.

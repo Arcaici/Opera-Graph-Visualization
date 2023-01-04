@@ -5,16 +5,24 @@
         background-color: lightgray;
     }
 
+    .window {
+        margin-bottom: 0px;
+    }
+
+    .layout-bar {
+        font-size: small;
+        padding-top: 16px;
+    }
+
     #yearsLegend {
         margin-top: 10px;
         margin-bottom: 20px;
-        border: groove black 1px;
     }
 
     #nodesLegend {
         padding: 50px;
         margin-bottom: 20px;
-        border: groove black 1px;
+        background-color: #918e8e;
     }
 
     .nodesLegendTd {
@@ -30,11 +38,12 @@
 
     .edgesInfo {
         padding: 10px;
-        border: groove black 1px;
+        background-color: #918e8e;
     }
 
     #reset {
         margin-top: 20px;
+        margin-bottom: 20px;
     }
 </style>
 
@@ -57,26 +66,35 @@
 
     <!--########################## LAYOUT ##########################-->
     <div class="container-fluid">
+        <div class="row bg-secondary shadow justify-content-center" id="menu">
+            <div class="col-2 text-center layout-bar"><button class="btn btn-secondary btn-sm window"
+                    onclick="changePage('map')">Mappa del Mondo</p>
+            </div>
+            <div class="col-2 text-center layout-bar"><button class="btn btn-secondary btn-sm window"
+                    onclick="changePage('force')">Rigenera Colori</p>
+            </div>
+            <div class="col-6"></div>
+            <div class="col-2 text-center layout-bar">
+                <button class="btn btn-secondary btn-sm window" onclick="cleanInfo()">Reset Info</button>
+            </div>
+        </div>
         <div class="row">
             <div class="col-8 d-flex justify-content-center" id="svg"></div>
             <div class="col-4">
                 <div class="col justify-content-center">
-                    <table class="w-100 text-center" id="yearsLegend">
+                    <table class="w-100 shadow-lg text-center" id="yearsLegend">
                     </table>
                 </div>
                 <div class="col justify-content-center">
-                    <table class="w-100 text-center" id="nodesLegend">
+                    <table class="w-100 shadow-lg text-center" id="nodesLegend">
                     </table>
                 </div>
-                <div class="col edgesInfo">
+                <div class="col shadow-lg edgesInfo">
                     <h3 id="h-titles">Interagisci con gli archi per ottenere i titoli a loro collegati</h3>
                     <p id="titles"></p>
                     <p id="source"></p>
                     <p id="target"></p>
                     <p id="n_performance"></p>
-                </div>
-                <div class="col w-100 text-center">
-                    <button id="reset" onclick="cleanInfo()">Resetta Info</button>
                 </div>
             </div>
         </div>
@@ -84,6 +102,15 @@
 
     <!--########################## LOGIC ##########################-->
     <script>
+        //--########################## change window ##########################--
+        function changePage(name) {
+            const { ipcRenderer } = require('electron')
+            if(name =='map'){
+                ipcRenderer.send('load-new-file', 'map_graph.html');
+            }else{
+                ipcRenderer.send('reload-page');
+            }
+        }
 
         //--########################## legends setup logic ##########################--
 
@@ -173,7 +200,6 @@
                     id = unique.findIndex(el => el.color == 0);
                     while (!new_color) {
                         let color = "#" + Math.floor(Math.random() * 16777215).toString(16);
-                        console.log(color);
                         if (unique.find(el => el.color == color) == undefined && color != "#bc300" && color != "#de288" && color != "#d3d3d3") {
                             unique.at(id).color = color;
                             new_color = true;
@@ -238,11 +264,11 @@
                     target.innerHTML.replace("<b>Compositore: </b>", "")
                 );
             }
-            h_title.innerHTML="Interagisci con gli archi per ottenere i titoli a loro collegati";
+            h_title.innerHTML = "Interagisci con gli archi per ottenere i titoli a loro collegati";
             titles.innerHTML = "";
-            source.innerHTML="";
-            target.innerHTML="";
-            n_performance.innerHTML="";
+            source.innerHTML = "";
+            target.innerHTML = "";
+            n_performance.innerHTML = "";
         }
 
         //--########################## Force Layout Logic ##########################--
@@ -417,6 +443,8 @@
             return Object.assign(svg.node(), { scales: { color } });
         }
 
+        var menu_height = document.getElementById("menu").offsetHeight;
+
         //generation of Force Graph Layout
         chart = ForceGraph({ nodes: nodes, links: links }, {
             nodeId: d => d.id,
@@ -426,8 +454,8 @@
             linkName: d => d.name,
             linkStroke: d => legend.find(el => el.year == d.group).color,
             linkStrokeWidth: d => d.weight + 1,
-            width: (window.innerWidth *((1/12)*8)),
-            height: (window.innerHeight* 1)
+            width: (window.innerWidth * ((1 / 12) * 8)),
+            height: ((window.innerHeight - menu_height) * 1)
         })
 
         //appending layout

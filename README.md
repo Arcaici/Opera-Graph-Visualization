@@ -1,7 +1,8 @@
-# GraphDrawingProject
-grafi:
-* Grafo a mappa
-* Grafo force directed
+# Visualization Project
+
+Graph types:
+* Map graph
+* Force Directed graph
 
 ## Grafo a mappa
 

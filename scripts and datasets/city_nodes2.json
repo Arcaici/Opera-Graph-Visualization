@@ -1,0 +1,258 @@
+[
+    {
+        "nome_opera": "Achille in Sciro",
+        "id": "Sankt Petersburg",
+        "title": "Sankt Petersburg",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                30.35167579963314,
+                59.93370893284516
+            ]
+        },
+        "years": [
+            "1778"
+        ]
+    },
+    {
+        "nome_opera": "Alcide al bivio",
+        "id": "Sankt Petersburg",
+        "title": "Sankt Petersburg",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                30.35167579963314,
+                59.93370893284516
+            ]
+        },
+        "years": [
+            "1780"
+        ]
+    },
+    {
+        "nome_opera": "Azor re di Kibinga",
+        "id": "Venezia",
+        "title": "Venezia",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                12.309056323431884,
+                45.434618615660035
+            ]
+        },
+        "years": [
+            "1779"
+        ]
+    },
+    {
+        "nome_opera": "Il Demofoonte",
+        "id": "Venezia",
+        "title": "Venezia",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                12.309056323431884,
+                45.434618615660035
+            ]
+        },
+        "years": [
+            "1775"
+        ]
+    },
+    {
+        "nome_opera": "Il finto principe",
+        "id": "Firenze",
+        "title": "Firenze",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                11.175485712359881,
+                43.79889113503871
+            ]
+        },
+        "years": [
+            "1775"
+        ]
+    },
+    {
+        "nome_opera": "Il matrimonio per inganno",
+        "id": "Firenze",
+        "title": "Firenze",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                11.175485712359881,
+                43.79889113503871
+            ]
+        },
+        "years": [
+            "1779"
+        ]
+    },
+    {
+        "nome_opera": "Il mondo della luna",
+        "id": "Sankt Petersburg",
+        "title": "Sankt Petersburg",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                30.35167579963314,
+                59.93370893284516
+            ]
+        },
+        "years": [
+            "1782",
+            "1783"
+        ]
+    },
+    {
+        "nome_opera": "Il re pastore",
+        "id": "Salzburg",
+        "title": "Salzburg",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                12.95267781693314,
+                47.83156049437746
+            ]
+        },
+        "years": [
+            "1775"
+        ]
+    },
+    {
+        "nome_opera": "Il servo padrone",
+        "id": "Venezia",
+        "title": "Venezia",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                12.309056323431884,
+                45.434618615660035
+            ]
+        },
+        "years": [
+            "1794"
+        ]
+    },
+    {
+        "nome_opera": "Ipermestra",
+        "id": "Napoli",
+        "title": "Napoli",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                14.266838282176906,
+                40.84834906599953
+            ]
+        },
+        "years": [
+            "1780"
+        ]
+    },
+    {
+        "nome_opera": "L’incognita perseguitata",
+        "id": "Paris",
+        "title": "Paris",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                2.348747661558289,
+                48.85681441359952
+            ]
+        },
+        "years": [
+            "1776"
+        ]
+    },
+    {
+        "nome_opera": "La roccia di Frauenstein",
+        "id": "Venezia",
+        "title": "Venezia",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                12.309056323431884,
+                45.434618615660035
+            ]
+        },
+        "years": [
+            "1805"
+        ]
+    },
+    {
+        "nome_opera": "La vanità delusa",
+        "id": "Firenze",
+        "title": "Firenze",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                11.175485712359881,
+                43.79889113503871
+            ]
+        },
+        "years": [
+            "1784"
+        ]
+    },
+    {
+        "nome_opera": "L'eroe cinese",
+        "id": "Napoli",
+        "title": "Napoli",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                14.266838282176906,
+                40.84834906599953
+            ]
+        },
+        "years": [
+            "1782"
+        ]
+    },
+    {
+        "nome_opera": "Saffo",
+        "id": "Venezia",
+        "title": "Venezia",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                12.309056323431884,
+                45.434618615660035
+            ]
+        },
+        "years": [
+            "1794"
+        ]
+    },
+    {
+        "nome_opera": "Telemaco nell'isola di Calipso",
+        "id": "Venezia",
+        "title": "Venezia",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                12.309056323431884,
+                45.434618615660035
+            ]
+        },
+        "years": [
+            "1797"
+        ]
+    },
+    {
+        "nome_opera": "Il servo padrone",
+        "id": "Venezia",
+        "title": "Venezia",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                12.309056323431884,
+                45.434618615660035
+            ]
+        },
+        "years": [
+            "1794"
+        ]
+    }
+]

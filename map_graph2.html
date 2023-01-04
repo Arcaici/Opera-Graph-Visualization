@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+
+<!-- Styles -->
+<style>
+    .container-fluid {
+        background-color: lightgray;
+    }
+
+    .window {
+        margin-bottom: 0px;
+    }
+
+    .layout-bar {
+        font-size: small;
+        padding-top: 16px;
+    }
+
+    .edgesInfo {
+        margin-top: 15px;
+        padding: 10px;
+        background-color: #918e8e;
+    }
+
+    #chartdiv {
+        margin-top: 15px;
+        margin-left: 15px;
+        margin-bottom: 80px;
+        width: 65%;
+        height: 650px;
+    }
+</style>
+
+<head>
+    <!-- Resources -->
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
+
+    <!-- Amcharts -->
+    <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/map.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/geodata/worldLow.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/geodata/lang/IT.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+
+</head>
+<!-- HTML -->
+
+<body>
+    <!-- Layout -->
+    <div class="container-fluid">
+        <div class="row bg-secondary shadow justify-content-center" id="menu">
+            <div class="col-2 text-center layout-bar"><button class="btn btn-secondary btn-sm window"
+                    onclick="changePage('force')">Librettisti e Compositori</button>
+            </div>
+            <div class="col-2 text-center layout-bar"><button class="btn btn-secondary btn-sm window"
+                    onclick="changePage('map')">Torna alla mappa completa</button>
+            </div>
+            <div class="col-8"></div>
+        </div>
+        <div class="row ">
+            <div class="col-8 p-0" id="chartdiv"></div>
+            <div class="col-4 ">
+                <div class="col shadow-lg edgesInfo">
+                    <h6 id="h-title">Interagisci con un nodo per vedere ulteriori informazioni</h4>
+                        <p id="opere"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<!-- Chart code -->
+<script>
+    function changePage(name) {
+        const { ipcRenderer } = require('electron')
+        if (name == 'force') {
+            ipcRenderer.send('load-new-file', 'force_graph.html');
+        } else if (name == 'map') {
+            ipcRenderer.send('load-new-file', 'map_graph.html');
+        }
+    }
+
+
+    am5.ready(function () {
+
+        // Create root element
+        // https://www.amcharts.com/docs/v5/getting-started/#Root_element
+        root = am5.Root.new("chartdiv");
+
+
+        // Set themes
+        // https://www.amcharts.com/docs/v5/concepts/themes/
+        root.setThemes([
+            am5themes_Animated.new(root)
+        ]);
+
+
+        // Create the map chart
+        // https://www.amcharts.com/docs/v5/charts/map-chart/
+        chart = root.container.children.push(am5map.MapChart.new(root, {
+            panX: "translateX",
+            panY: "translateY",
+            wheelY: "zoom",
+            projection: am5map.geoMercator()
+        }));
+
+        var cont = chart.children.push(am5.Container.new(root, {
+            layout: root.horizontalLayout,
+            x: 20,
+            y: 40
+        }));
+
+
+        // Create main polygon series for countries
+        // https://www.amcharts.com/docs/v5/charts/map-chart/map-polygon-series/
+        var polygonSeries = chart.series.push(am5map.MapPolygonSeries.new(root, {
+            geoJSON: am5geodata_worldLow,
+            geodataNames: am5geodata_lang_IT
+        }));
+
+        polygonSeries.mapPolygons.template.setAll({
+            tooltipText: "{name}",
+            interactive: true
+        });
+
+        polygonSeries.mapPolygons.template.states.create("hover", {
+            fill: am5.color(0x677935)
+        });
+
+
+        // Create line series for trajectory line
+        lineSeries = chart.series.push(am5map.MapLineSeries.new(root, {}));
+
+        var bulletTemplate = am5.Template.new(root, {});
+
+        bulletTemplate.events.on("click", function (ev) {
+            showTitles(ev.target.dataItem.dataContext);
+        });
+
+        citySeries = chart.series.push(
+            am5map.MapPointSeries.new(root, {})
+        );
+
+        citySeries.bullets.push(function () {
+            var circle = am5.Circle.new(root, {
+                radius: 5,
+                tooltipText: "{title}",
+                tooltipY: 0,
+                fill: am5.color(0xff0000),
+                stroke: am5.color(0x000000),
+                strokeWidth: 2
+            },
+                bulletTemplate
+            );
+
+            return am5.Bullet.new(root, {
+                sprite: circle
+            });
+        });
+
+
+        // arrow series
+        arrowSeries = chart.series.push(
+            am5map.MapPointSeries.new(root, {})
+        );
+
+        arrowSeries.bullets.push(function () {
+            var arrow = am5.Graphics.new(root, {
+                fill: am5.color(0xff0000),
+                stroke: am5.color(0x000000),
+                draw: function (display) {
+                    display.moveTo(0, -3);
+                    display.lineTo(8, 0);
+                    display.lineTo(0, 3);
+                    display.lineTo(0, -3);
+                }
+            });
+
+            return am5.Bullet.new(root, {
+                sprite: arrow
+            });
+        });
+
+
+        cities = [{ "nome_opera": "Achille in Sciro", "id": "Sankt Petersburg", "title": "Sankt Petersburg", "geometry": { "type": "Point", "coordinates": [30.35167579963314, 59.93370893284516] }, "years": ["1778"] }, { "nome_opera": "Alcide al bivio", "id": "Sankt Petersburg", "title": "Sankt Petersburg", "geometry": { "type": "Point", "coordinates": [30.35167579963314, 59.93370893284516] }, "years": ["1780"] }, { "nome_opera": "Azor re di Kibinga", "id": "Venezia", "title": "Venezia", "geometry": { "type": "Point", "coordinates": [12.309056323431884, 45.434618615660035] }, "years": ["1779"] }, { "nome_opera": "Il Demofoonte", "id": "Venezia", "title": "Venezia", "geometry": { "type": "Point", "coordinates": [12.309056323431884, 45.434618615660035] }, "years": ["1775"] }, { "nome_opera": "Il finto principe", "id": "Firenze", "title": "Firenze", "geometry": { "type": "Point", "coordinates": [11.175485712359881, 43.79889113503871] }, "years": ["1775"] }, { "nome_opera": "Il matrimonio per inganno", "id": "Firenze", "title": "Firenze", "geometry": { "type": "Point", "coordinates": [11.175485712359881, 43.79889113503871] }, "years": ["1779"] }, { "nome_opera": "Il mondo della luna", "id": "Sankt Petersburg", "title": "Sankt Petersburg", "geometry": { "type": "Point", "coordinates": [30.35167579963314, 59.93370893284516] }, "years": ["1782", "1783"] }, { "nome_opera": "Il re pastore", "id": "Salzburg", "title": "Salzburg", "geometry": { "type": "Point", "coordinates": [12.95267781693314, 47.83156049437746] }, "years": ["1775"] }, { "nome_opera": "Il servo padrone", "id": "Venezia", "title": "Venezia", "geometry": { "type": "Point", "coordinates": [12.309056323431884, 45.434618615660035] }, "years": ["1794"] }, { "nome_opera": "Ipermestra", "id": "Napoli", "title": "Napoli", "geometry": { "type": "Point", "coordinates": [14.266838282176906, 40.84834906599953] }, "years": ["1780"] }, { "nome_opera": "L’incognita perseguitata", "id": "Paris", "title": "Paris", "geometry": { "type": "Point", "coordinates": [2.348747661558289, 48.85681441359952] }, "years": ["1776"] }, { "nome_opera": "La roccia di Frauenstein", "id": "Venezia", "title": "Venezia", "geometry": { "type": "Point", "coordinates": [12.309056323431884, 45.434618615660035] }, "years": ["1805"] }, { "nome_opera": "La vanità delusa", "id": "Firenze", "title": "Firenze", "geometry": { "type": "Point", "coordinates": [11.175485712359881, 43.79889113503871] }, "years": ["1784"] }, { "nome_opera": "L'eroe cinese", "id": "Napoli", "title": "Napoli", "geometry": { "type": "Point", "coordinates": [14.266838282176906, 40.84834906599953] }, "years": ["1782"] }, { "nome_opera": "Saffo", "id": "Venezia", "title": "Venezia", "geometry": { "type": "Point", "coordinates": [12.309056323431884, 45.434618615660035] }, "years": ["1794"] }, { "nome_opera": "Telemaco nell'isola di Calipso", "id": "Venezia", "title": "Venezia", "geometry": { "type": "Point", "coordinates": [12.309056323431884, 45.434618615660035] }, "years": ["1797"] }, { "nome_opera": "Il servo padrone", "id": "Venezia", "title": "Venezia", "geometry": { "type": "Point", "coordinates": [12.309056323431884, 45.434618615660035] }, "years": ["1794"] }]
+
+        citySeries.data.setAll(cities);
+
+
+        //prepare line series data
+        destinations = [
+            {
+                "source": "Sankt Petersburg",
+                "target": "Salzburg"
+            },
+            {
+                "source": "Sankt Petersburg",
+                "target": "Venezia"
+            },
+            {
+                "source": "Sankt Petersburg",
+                "target": "Napoli"
+            },
+            {
+                "source": "Sankt Petersburg",
+                "target": "Paris"
+            },
+            {
+                "source": "Sankt Petersburg",
+                "target": "Firenze"
+            },
+            {
+                "source": "Paris",
+                "target": "Venezia"
+            },
+            {
+                "source": "Paris",
+                "target": "Napoli"
+            },
+            {
+                "source": "Paris",
+                "target": "Firenze"
+            },
+            {
+                "source": "Paris",
+                "target": "Salzburg"
+            },
+            {
+                "source": "Salzburg",
+                "target": "Venezia"
+            },
+            {
+                "source": "Salzburg",
+                "target": "Napoli"
+            },
+            {
+                "source": "Salzburg",
+                "target": "Firenze"
+            },
+            {
+                "source": "Venezia",
+                "target": "Napoli"
+            },
+            {
+                "source": "Venezia",
+                "target": "Firenze"
+            },
+            {
+                "source": "Firenze",
+                "target": "Napoli"
+            }
+        ]
+
+
+        am5.array.each(destinations, function (did) {
+            var sourceDataItem = citySeries.getDataItemById(did.source);
+            var destinationDataItem = citySeries.getDataItemById(did.target);
+
+            var lineSeries = chart.series.push(am5map.MapLineSeries.new(root, {
+                stroke: 0xff0000,
+                strokeWidth: 2
+            })
+            );
+
+            lineDataItem = lineSeries.pushDataItem({ geometry: { type: "LineString", coordinates: [[sourceDataItem.get("longitude"), sourceDataItem.get("latitude")], [destinationDataItem.get("longitude"), destinationDataItem.get("latitude")]] } });
+
+        })
+
+        //Zoom the map to focus on Europe
+        polygonSeries.events.on("datavalidated", function () {
+            chart.zoomToGeoPoint({ longitude: 10, latitude: 52 }, 3.5);
+        })
+
+
+        // Make stuff animate on load
+        chart.appear(1000, 100);
+
+
+    }); // end am5.ready()
+
+
+    // Edges Info and Colors Logic
+    function showTitles(d) {
+
+        let h_title = document.getElementById("h-title");
+        let opere = document.getElementById("opere")
+        h_title.innerHTML = d.id;
+        opere.innerHTML = "";
+
+        let titles = cities.filter(el => d.id == el.id);
+
+        for (ti of titles) {
+            opere.innerHTML = opere.innerHTML + ti.nome_opera + ": ";
+            opere.innerHTML = opere.innerHTML + ti.years + " ";
+            opere.innerHTML = opere.innerHTML + "<br>";
+        }
+    }
+
+</script>
+
+</html>

@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html>
+
+<!-- Styles -->
+<style>
+    body,
+    html {
+        background-color: lightgray;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+    }
+
+    .container-fluid {
+        background-color: lightgray;
+    }
+
+    .window {
+        margin-bottom: 0px;
+    }
+
+    .layout-bar {
+        font-size: small;
+        padding-top: 16px;
+    }
+
+    .right {
+        height: 100vh;
+        overflow: hidden;
+        overflow-y: scroll;
+
+        -ms-overflow-style: none;
+        /* for Internet Explorer, Edge */
+        scrollbar-width: none;
+        /* for Firefox */
+        overflow-y: scroll;
+    }
+
+    .right::-webkit-scrollbar {
+        display: none;
+        /* for Chrome, Safari, and Opera */
+    }
+
+    #operaLegend {
+        margin-top: 15px;
+    }
+
+    #nodesLegend {
+        padding: 50px;
+        margin-bottom: 20px;
+        background-color: #918e8e;
+    }
+
+    .nodesLegendTd {
+        padding: 10px;
+    }
+
+    .nodesLegendElement {
+        height: 25px;
+        width: 25px;
+        border-radius: 50%;
+        display: inline-block;
+    }
+
+    .edgesInfo {
+        padding: 10px;
+        margin-bottom: 80px;
+        background-color: #918e8e;
+    }
+
+    #chartdiv {
+        margin-top: 15px;
+        margin-left: 15px;
+        margin-bottom: 80px;
+        width: 65%;
+        height: 650px;
+    }
+</style>
+
+<head>
+    <!-- Resources -->
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
+
+    <!-- Amcharts -->
+    <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/map.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/geodata/worldLow.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/geodata/lang/IT.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+
+</head>
+<!-- HTML -->
+
+<body>
+    <!-- Layout -->
+    <div class="container-fluid">
+        <div class="row bg-secondary shadow justify-content-center" id="menu">
+            <div class="col-2 text-center layout-bar"><button class="btn btn-secondary btn-sm window"
+                    onclick="changePage('force')">Librettisti e Compositori</button>
+            </div>
+            <div class="col-2 text-center layout-bar"><button class="btn btn-secondary btn-sm window"
+                    onclick="changePage('map2')">Opere uniche</button>
+            </div>
+            <div class="col-2 text-center layout-bar"><button class="btn btn-secondary btn-sm window"
+                    onclick="changePage('map')">Rigenera Colori</button>
+            </div>
+            <div class="col-6"></div>
+        </div>
+        <div class="row h-100">
+            <div class="col-8 p-0" id="chartdiv"></div>
+            <div class="col-4 right ">
+                <div class="col justify-content-center">
+                    <table class="w-100 shadow-lg text-center" id="operaLegend">
+                    </table>
+                </div>
+                <div class="col justify-content-center">
+                    <table class="w-100 shadow-lg text-center" id="nodesLegend">
+                    </table>
+                </div>
+                <div class="col shadow-lg edgesInfo">
+                    <h6 id="h-title">Interagisci con un nodo per vedere ulteriori informazioni</h4>
+                        <p id="opere"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<!-- Chart code -->
+<script>
+    count = 110;
+    function changePage(name) {
+        const { ipcRenderer } = require('electron')
+        if (name == 'force') {
+            ipcRenderer.send('load-new-file', 'force_graph.html');
+        } else if (name == 'map2') {
+            ipcRenderer.send('load-new-file', 'map_graph2.html');
+        } else {
+            ipcRenderer.send('reload-page');
+        }
+    }
+
+    //prepare line series data
+    destinations = [{ "source": "Venezia", "target": "Dresden", "opera": "Adelaide di Guesclino" }, { "source": "Dresden", "target": "Hamburg", "opera": "Adelaide di Guesclino" }, { "source": "Padova", "target": "Venezia", "opera": "Adriano in Siria" }, { "source": "Napoli", "target": "Roma", "opera": "Alessandro nell'Indie" }, { "source": "Bologna", "target": "Napoli", "opera": "Antigono" }, { "source": "Napoli", "target": "Torino", "opera": "Artaserse" }, { "source": "Torino", "target": "Roma", "opera": "Artaserse" }, { "source": "Paris", "target": "Wien", "opera": "Axur re d'Ormus" }, { "source": "Paris", "target": "Bonn", "opera": "Axur re d'Ormus" }, { "source": "Paris", "target": "Wien", "opera": "Axur re d'Ormus" }, { "source": "Wien", "target": "Bonn", "opera": "Axur re d'Ormus" }, { "source": "Bonn", "target": "Dresden", "opera": "Axur re d'Ormus" }, { "source": "Wien", "target": "Dresden", "opera": "Axur re d'Ormus" }, { "source": "Dresden", "target": "Braunschweig", "opera": "Axur re d'Ormus" }, { "source": "Braunschweig", "target": "Weimar", "opera": "Axur re d'Ormus" }, { "source": "Weimar", "target": "Paris", "opera": "Axur re d'Ormus" }, { "source": "Venezia", "target": "Genova", "opera": "Che originali" }, { "source": "Genova", "target": "Wien", "opera": "Che originali" }, { "source": "Wien", "target": "Padova", "opera": "Che originali" }, { "source": "Padova", "target": "Venezia", "opera": "Che originali" }, { "source": "Wien", "target": "Dresden", "opera": "Così fan tutte" }, { "source": "Wien", "target": "Donaueschingen", "opera": "Così fan tutte" }, { "source": "Dresden", "target": "Weimar", "opera": "Così fan tutte" }, { "source": "Donaueschingen", "target": "Weimar", "opera": "Così fan tutte" }, { "source": "Weimar", "target": "Dessau", "opera": "Così fan tutte" }, { "source": "Dessau", "target": "Breslau", "opera": "Così fan tutte" }, { "source": "Breslau", "target": "Osnabrück", "opera": "Così fan tutte" }, { "source": "Osnabrück", "target": "Breslau", "opera": "Così fan tutte" }, { "source": "Breslau", "target": "Dresden", "opera": "Così fan tutte" }, { "source": "Dresden", "target": "Breslau", "opera": "Così fan tutte" }, { "source": "Venezia", "target": "Napoli", "opera": "Didone abbandonata" }, { "source": "Praha", "target": "Wien", "opera": "Don Giovanni" }, { "source": "Wien", "target": "Hamburg", "opera": "Don Giovanni" }, { "source": "Hamburg", "target": "Weimar", "opera": "Don Giovanni" }, { "source": "Weimar", "target": "Amsterdam", "opera": "Don Giovanni" }, { "source": "Amsterdam", "target": "Dresden", "opera": "Don Giovanni" }, { "source": "Napoli", "target": "Bologna", "opera": "Elfrida" }, { "source": "Napoli", "target": "Verona", "opera": "Elfrida" }, { "source": "Valletta", "target": "Venezia", "opera": "Elisa" }, { "source": "Milano", "target": "Ravenna", "opera": "Eraldo ed Emma" }, { "source": "Napoli", "target": "Frankfurt am Main", "opera": "Ginevra di Scozia" }, { "source": "Frankfurt am Main", "target": "Genova", "opera": "Ginevra di Scozia" }, { "source": "Genova", "target": "Weimar", "opera": "Ginevra di Scozia" }, { "source": "Leipzig", "target": "Venezia", "opera": "Gli Orazi ed i Curiazi" }, { "source": "Venezia", "target": "Roma", "opera": "Gli Orazi ed i Curiazi" }, { "source": "Venezia", "target": "Milano", "opera": "Gli Orazi ed i Curiazi" }, { "source": "Roma", "target": "Milano", "opera": "Gli Orazi ed i Curiazi" }, { "source": "Sankt Petersburg", "target": "Paris", "opera": "I Filosofi immaginari" }, { "source": "Sankt Petersburg", "target": "Paris", "opera": "I Filosofi immaginari" }, { "source": "Paris", "target": "Venezia", "opera": "I Filosofi immaginari" }, { "source": "Venezia", "target": "Weimar", "opera": "I Filosofi immaginari" }, { "source": "Weimar", "target": "Pillnitz", "opera": "I Filosofi immaginari" }, { "source": "Venezia", "target": "Hamburg", "opera": "Il crociato in Egitto" }, { "source": "Hamburg", "target": "Detmold", "opera": "Il crociato in Egitto" }, { "source": "Praha", "target": "Graz", "opera": "Il geloso in cimento" }, { "source": "Praha", "target": "Paris", "opera": "Il geloso in cimento" }, { "source": "Dresden", "target": "Graz", "opera": "Il geloso in cimento" }, { "source": "Dresden", "target": "Paris", "opera": "Il geloso in cimento" }, { "source": "Graz", "target": "Hamburg", "opera": "Il geloso in cimento" }, { "source": "Graz", "target": "Braunschweig", "opera": "Il geloso in cimento" }, { "source": "Paris", "target": "Hamburg", "opera": "Il geloso in cimento" }, { "source": "Paris", "target": "Braunschweig", "opera": "Il geloso in cimento" }, { "source": "Hamburg", "target": "Castelnuovo", "opera": "Il geloso in cimento" }, { "source": "Braunschweig", "target": "Castelnuovo", "opera": "Il geloso in cimento" }, { "source": "Castelnuovo", "target": "Napoli", "opera": "Il geloso in cimento" }, { "source": "Napoli", "target": "Weimar", "opera": "Il geloso in cimento" }, { "source": "Wien", "target": "Napoli", "opera": "Il matrimonio segreto" }, { "source": "Dresden", "target": "Napoli", "opera": "Il matrimonio segreto" }, { "source": "Napoli", "target": "Venezia", "opera": "Il matrimonio segreto" }, { "source": "Venezia", "target": "Weimar", "opera": "Il matrimonio segreto" }, { "source": "Venezia", "target": "Dessau", "opera": "Il matrimonio segreto" }, { "source": "Weimar", "target": "Paris", "opera": "Il matrimonio segreto" }, { "source": "Dessau", "target": "Paris", "opera": "Il matrimonio segreto" }, { "source": "Paris", "target": "Dresden", "opera": "Il matrimonio segreto" }, { "source": "Milano", "target": "Wien", "opera": "Il talismano" }, { "source": "Wien", "target": "Hamburg", "opera": "Il talismano" }, { "source": "Venezia", "target": "Regensburg", "opera": "Isabella e Rodrigo" }, { "source": "Padova", "target": "Genova", "opera": "L' Amor coniugale" }, { "source": "Venezia", "target": "Firenze", "opera": "L' Avaro" }, { "source": "Regensburg", "target": "Firenze", "opera": "L' Avaro" }, { "source": "Firenze", "target": "Braunschweig", "opera": "L' Avaro" }, { "source": "Braunschweig", "target": "Paris", "opera": "L' Avaro" }, { "source": "Hannover", "target": "Regensburg", "opera": "La buona figliuola" }, { "source": "Hannover", "target": "Hamburg", "opera": "La buona figliuola" }, { "source": "Hamburg", "target": "Regensburg", "opera": "La buona figliuola" }, { "source": "Wien", "target": "Pillnitz", "opera": "La cifra" }, { "source": "Pillnitz", "target": "Bad Lauchstädt", "opera": "La cifra" }, { "source": "Pillnitz", "target": "Weimar", "opera": "La cifra" }, { "source": "Pillnitz", "target": "Hamburg", "opera": "La cifra" }, { "source": "Bad Lauchstädt", "target": "Weimar", "opera": "La cifra" }, { "source": "Hamburg", "target": "Weimar", "opera": "La cifra" }, { "source": "Praha", "target": "Weimar", "opera": "La clemenza di Tito" }, { "source": "Praha", "target": "Braunschweig", "opera": "La clemenza di Tito" }, { "source": "Weimar", "target": "Napoli", "opera": "La clemenza di Tito" }, { "source": "Braunschweig", "target": "Napoli", "opera": "La clemenza di Tito" }, { "source": "Napoli", "target": "Karlsruhe", "opera": "La clemenza di Tito" }, { "source": "Karlsruhe", "target": "Osnabrück", "opera": "La clemenza di Tito" }, { "source": "London", "target": "Paris", "opera": "La finta giardiniera" }, { "source": "Napoli", "target": "Paris", "opera": "La finta giardiniera" }, { "source": "Paris", "target": "Frankfurt am Main", "opera": "La finta giardiniera" }, { "source": "Venezia", "target": "Torino", "opera": "La forza delle donne" }, { "source": "Torino", "target": "Braunschweig", "opera": "La forza delle donne" }, { "source": "Braunschweig", "target": "Regensburg", "opera": "La forza delle donne" }, { "source": "London", "target": "Napoli", "opera": "La locanda" }, { "source": "Venezia", "target": "Hamburg", "opera": "La scuola de' gelosi" }, { "source": "London", "target": "Wien", "opera": "La scuola dei maritati" }, { "source": "Venezia", "target": "Wien", "opera": "La scuola dei maritati" }, { "source": "Wien", "target": "Weimar", "opera": "La scuola dei maritati" }, { "source": "Weimar", "target": "Udine", "opera": "La scuola dei maritati" }, { "source": "Venezia", "target": "Wien", "opera": "L'arbore di Diana" }, { "source": "Venezia", "target": "Wien", "opera": "L'arbore di Diana" }, { "source": "Wien", "target": "Hamburg", "opera": "L'arbore di Diana" }, { "source": "Wien", "target": "Hamburg", "opera": "L'arbore di Diana" }, { "source": "Hamburg", "target": "Donaueschingen", "opera": "L'arbore di Diana" }, { "source": "Hamburg", "target": "Braunschweig", "opera": "L'arbore di Diana" }, { "source": "Donaueschingen", "target": "Weimar", "opera": "L'arbore di Diana" }, { "source": "Braunschweig", "target": "Weimar", "opera": "L'arbore di Diana" }, { "source": "Wien", "target": "Praha", "opera": "Le nozze di Figaro" }, { "source": "Praha", "target": "Potsdam", "opera": "Le nozze di Figaro" }, { "source": "Potsdam", "target": "Weimar", "opera": "Le nozze di Figaro" }, { "source": "Weimar", "target": "Dresden", "opera": "Le nozze di Figaro" }, { "source": "Dresden", "target": "Detmold", "opera": "Le nozze di Figaro" }, { "source": "Bologna", "target": "Venezia", "opera": "Lo sposo disperato" }, { "source": "Sankt Petersburg", "target": "Venezia", "opera": "Nitteti" }, { "source": "Roma", "target": "Vicenza", "opera": "Olimpiade" }, { "source": "Vicenza", "target": "Napoli", "opera": "Olimpiade" }, { "source": "Venezia", "target": "Weimar", "opera": "Semiramide" }, { "source": "Weimar", "target": "Hamburg", "opera": "Semiramide" }, { "source": "Venezia", "target": "Weimar", "opera": "Tancredi" }, { "source": "Wien", "target": "Donaueschingen", "opera": "Una cosa rara" }, { "source": "Wien", "target": "Braunschweig", "opera": "Una cosa rara" }, { "source": "Wien", "target": "Venezia", "opera": "Una cosa rara" }, { "source": "Wien", "target": "Bologna", "opera": "Una cosa rara" }, { "source": "Wien", "target": "Roma", "opera": "Una cosa rara" }, { "source": "Donaueschingen", "target": "Napoli", "opera": "Una cosa rara" }, { "source": "Braunschweig", "target": "Napoli", "opera": "Una cosa rara" }, { "source": "Venezia", "target": "Napoli", "opera": "Una cosa rara" }, { "source": "Bologna", "target": "Napoli", "opera": "Una cosa rara" }, { "source": "Roma", "target": "Napoli", "opera": "Una cosa rara" }, { "source": "Napoli", "target": "Faenza", "opera": "Una cosa rara" }, { "source": "Faenza", "target": "Weimar", "opera": "Una cosa rara" }, { "source": "Weimar", "target": "Braunschweig", "opera": "Una cosa rara" }, { "source": "Braunschweig", "target": "Detmold", "opera": "Una cosa rara" }, { "source": "Detmold", "target": "Osnabrück", "opera": "Una cosa rara" }]
+
+    // Function to set color edge
+    function setColorEdge(destinations) {
+        let unique = [];
+        for (link of destinations) {
+            if (!unique.some(el => el.opera == link.opera)) {
+                new_opera = {
+                    'opera': link.opera,
+                    'color': 0
+                }
+
+                unique.push(new_opera);
+                new_color = false;
+                id = unique.findIndex(el => el.color == 0);
+                while (!new_color) {
+                    let color = "#" + Math.floor(Math.random() * 16777215).toString(16);
+                    if (unique.find(el => el.color == color) == undefined) {
+                        unique.at(id).color = color;
+                        new_color = true;
+                    }
+                }
+            }
+        }
+        return unique;
+    }
+    var legend = setColorEdge(destinations)
+
+    am5.ready(function () {
+
+        // Create root element
+        // https://www.amcharts.com/docs/v5/getting-started/#Root_element
+        root = am5.Root.new("chartdiv");
+
+
+        // Set themes
+        // https://www.amcharts.com/docs/v5/concepts/themes/
+        root.setThemes([
+            am5themes_Animated.new(root)
+        ]);
+
+
+        // Create the map chart
+        // https://www.amcharts.com/docs/v5/charts/map-chart/
+        chart = root.container.children.push(am5map.MapChart.new(root, {
+            panX: "translateX",
+            panY: "translateY",
+            wheelY: "zoom",
+            projection: am5map.geoMercator()
+        }));
+
+        var cont = chart.children.push(am5.Container.new(root, {
+            layout: root.horizontalLayout,
+            x: 20,
+            y: 40
+        }));
+
+        // Create main polygon series for countries
+        // https://www.amcharts.com/docs/v5/charts/map-chart/map-polygon-series/
+        var polygonSeries = chart.series.push(am5map.MapPolygonSeries.new(root, {
+            geoJSON: am5geodata_worldLow,
+            geodataNames: am5geodata_lang_IT
+        }));
+
+        polygonSeries.mapPolygons.template.setAll({
+            tooltipText: "{name}",
+            interactive: true
+        });
+
+        polygonSeries.mapPolygons.template.states.create("hover", {
+            fill: am5.color(0x677935)
+        });
+
+
+        // Create line series for trajectory line
+        lineSeries = chart.series.push(am5map.MapLineSeries.new(root, {}));
+
+        var bulletTemplate = am5.Template.new(root, {});
+
+        bulletTemplate.events.on("click", function (ev) {
+            showTitles(ev.target.dataItem.dataContext);
+        });
+
+        citySeries = chart.series.push(
+            am5map.MapPointSeries.new(root, {})
+        );
+
+        citySeries.bullets.push(function () {
+            var circle = am5.Circle.new(root, {
+                radius: 5,
+                tooltipText: "{title}",
+                tooltipY: 0,
+                fill: am5.color(0xffba00),
+                stroke: root.interfaceColors.get("background"),
+                strokeWidth: 2
+            },
+                bulletTemplate
+            );
+
+            return am5.Bullet.new(root, {
+                sprite: circle
+            });
+        });
+
+        // arrow series
+        arrowSeries = chart.series.push(
+            am5map.MapPointSeries.new(root, {})
+        );
+
+        arrowSeries.bullets.push(function () {
+            var arrow = am5.Graphics.new(root, {
+                fill: am5.color(0x000000),
+                stroke: am5.color(0x000000),
+                draw: function (display) {
+                    display.moveTo(0, -3);
+                    display.lineTo(8, 0);
+                    display.lineTo(0, 3);
+                    display.lineTo(0, -3);
+                }
+            });
+
+            return am5.Bullet.new(root, {
+                sprite: arrow
+            });
+        });
+
+        cities = [{ "id": "Sankt Petersburg", "title": "Sankt Petersburg", "geometry": { "type": "Point", "coordinates": [30.35167579963314, 59.93370893284516] }, "opere": [{ "name": "Achille in Sciro", "years": ["1778"] }, { "name": "Alcide al bivio", "years": ["1780"] }, { "name": "I Filosofi immaginari", "years": ["1779", "1779"] }, { "name": "Il mondo della luna", "years": ["1782", "1783"] }, { "name": "Nitteti", "years": ["1777", "1778"] }] }, { "id": "Venezia", "title": "Venezia", "geometry": { "type": "Point", "coordinates": [12.309056323431884, 45.434618615660035] }, "opere": [{ "name": "Adelaide di Guesclino", "years": ["1799"] }, { "name": "Adriano in Siria", "years": ["1798"] }, { "name": "Azor re di Kibinga", "years": ["1779"] }, { "name": "Che originali", "years": ["1798", "1815"] }, { "name": "Didone abbandonata", "years": ["1775"] }, { "name": "Elisa", "years": ["1804"] }, { "name": "Emma di Resburgo", "years": ["1819"] }, { "name": "Ezio", "years": ["1778"] }, { "name": "Gli Orazi ed i Curiazi", "years": ["1794", "1796", "1797"] }, { "name": "Gli sciti", "years": ["1800"] }, { "name": "I Filosofi immaginari", "years": ["1782"] }, { "name": "Il crociato in Egitto", "years": ["1824"] }, { "name": "Il Demofoonte", "years": ["1775"] }, { "name": "Il matrimonio segreto", "years": ["1794"] }, { "name": "Il servo padrone", "years": ["1794"] }, { "name": "Isabella e Rodrigo", "years": ["1776"] }, { "name": "L' Avaro", "years": ["1775"] }, { "name": "La forza delle donne", "years": ["1778"] }, { "name": "La roccia di Frauenstein", "years": ["1805"] }, { "name": "La scuola de' gelosi", "years": ["1778"] }, { "name": "La scuola dei maritati", "years": ["1795"] }, { "name": "L'arbore di Diana", "years": ["1783"] }, { "name": "L'imbroglio delle tre spose", "years": ["1781"] }, { "name": "Lo sposo disperato", "years": ["1777", "1778"] }, { "name": "L'Olimpiade", "years": ["1784"] }, { "name": "Nitteti", "years": ["1780"] }, { "name": "Saffo", "years": ["1794"] }, { "name": "Semiramide", "years": ["1823"] }, { "name": "Tancredi", "years": ["1813"] }, { "name": "Telemaco nell'isola di Calipso", "years": ["1797"] }, { "name": "Una cosa rara", "years": ["1788"] }] }, { "id": "Dresden", "title": "Dresden", "geometry": { "type": "Point", "coordinates": [13.7258255689387, 51.04885065748165] }, "opere": [{ "name": "Adelaide di Guesclino", "years": ["1808"] }, { "name": "Axur re d'Ormus", "years": ["1789"] }, { "name": "Così fan tutte", "years": ["1791", "1830"] }, { "name": "Don Giovanni", "years": ["1814", "1821", "1832"] }, { "name": "Il geloso in cimento", "years": ["1775"] }, { "name": "Il matrimonio segreto", "years": ["1792", "1830"] }, { "name": "Le nozze di Figaro", "years": ["1815", "1829"] }] }, { "id": "Hamburg", "title": "Hamburg", "geometry": { "type": "Point", "coordinates": [9.989278274731264, 53.5439039631002] }, "opere": [{ "name": "Adelaide di Guesclino", "years": ["1815"] }, { "name": "Don Giovanni", "years": ["1789"] }, { "name": "Il crociato in Egitto", "years": ["1832"] }, { "name": "Il geloso in cimento", "years": ["1781"] }, { "name": "Il talismano", "years": ["1794"] }, { "name": "La buona figliuola", "years": ["1778"] }, { "name": "La cifra", "years": ["1793"] }, { "name": "La scuola de' gelosi", "years": ["1795"] }, { "name": "L'arbore di Diana", "years": ["1788"] }, { "name": "Semiramide", "years": ["1830"] }] }, { "id": "Padova", "title": "Padova", "geometry": { "type": "Point", "coordinates": [11.87812507896718, 45.40679797600407] }, "opere": [{ "name": "Adriano in Siria", "years": ["1777"] }, { "name": "Che originali", "years": ["1805"] }, { "name": "L' Amor coniugale", "years": ["1805"] }] }, { "id": "Napoli", "title": "Napoli", "geometry": { "type": "Point", "coordinates": [14.266838282176906, 40.84834906599953] }, "opere": [{ "name": "Alessandro nell'Indie", "years": ["1775"] }, { "name": "Antigono", "years": ["1784", "1785", "1795"] }, { "name": "Artaserse", "years": ["1784"] }, { "name": "Catone in Utica", "years": ["1789"] }, { "name": "Didone abbandonata", "years": ["1780", "1788", "1794"] }, { "name": "Elfrida", "years": ["1782", "1792", "1793", "1794"] }, { "name": "Elvira", "years": ["1793", "1794"] }, { "name": "Ginevra di Scozia", "years": ["1801"] }, { "name": "Il geloso in cimento", "years": ["1788"] }, { "name": "Il matrimonio segreto", "years": ["1793"] }, { "name": "Ipermestra", "years": ["1780"] }, { "name": "La clemenza di Tito", "years": ["1809"] }, { "name": "La finta giardiniera", "years": ["1775"] }, { "name": "La locanda", "years": ["1792"] }, { "name": "L'eroe cinese", "years": ["1782"] }, { "name": "Olimpiade", "years": ["1786", "1796"] }, { "name": "Una cosa rara", "years": ["1789"] }] }, { "id": "Roma", "title": "Roma", "geometry": { "type": "Point", "coordinates": [12.48352678418407, 41.908002951825644] }, "opere": [{ "name": "Alessandro nell'Indie", "years": ["1781"] }, { "name": "Artaserse", "years": ["1788"] }, { "name": "Caio Mario", "years": ["1780"] }, { "name": "Gli Orazi ed i Curiazi", "years": ["1797"] }, { "name": "I cherusci", "years": ["1808"] }, { "name": "Il curioso indiscreto", "years": ["1777"] }, { "name": "Olimpiade", "years": ["1778"] }, { "name": "Una cosa rara", "years": ["1788"] }] }, { "id": "Bologna", "title": "Bologna", "geometry": { "type": "Point", "coordinates": [11.339190587672393, 44.50153392281393] }, "opere": [{ "name": "Antigono", "years": ["1782"] }, { "name": "Elfrida", "years": ["1796"] }, { "name": "Lo sposo disperato", "years": ["1777"] }, { "name": "Una cosa rara", "years": ["1788"] }] }, { "id": "Torino", "title": "Torino", "geometry": { "type": "Point", "coordinates": [7.655927411000004, 45.10461427516563] }, "opere": [{ "name": "Artaserse", "years": ["1784", "1785"] }, { "name": "La forza delle donne", "years": ["1780"] }] }, { "id": "Weimar", "title": "Weimar", "geometry": { "type": "Point", "coordinates": [11.326952960572052, 50.98117812118344] }, "opere": [{ "name": "Axur re d'Ormus", "years": ["1800"] }, { "name": "Così fan tutte", "years": ["1797"] }, { "name": "Don Giovanni", "years": ["1792"] }, { "name": "Ginevra di Scozia", "years": ["1811"] }, { "name": "I Filosofi immaginari", "years": ["1791"] }, { "name": "Il geloso in cimento", "years": ["1791"] }, { "name": "Il matrimonio segreto", "years": ["1796"] }, { "name": "La cifra", "years": ["1793", "1795"] }, { "name": "La clemenza di Tito", "years": ["1799"] }, { "name": "La scuola dei maritati", "years": ["1799"] }, { "name": "L'arbore di Diana", "years": ["1793"] }, { "name": "Le nozze di Figaro", "years": ["1793"] }, { "name": "Semiramide", "years": ["1825"] }, { "name": "Tancredi", "years": ["1817"] }, { "name": "Una cosa rara", "years": ["1791"] }] }, { "id": "Bonn", "title": "Bonn", "geometry": { "type": "Point", "coordinates": [7.092999512455711, 50.76727422833096] }, "opere": [{ "name": "Axur re d'Ormus", "years": ["1788"] }] }, { "id": "Paris", "title": "Paris", "geometry": { "type": "Point", "coordinates": [2.348747661558289, 48.85681441359952] }, "opere": [{ "name": "Axur re d'Ormus", "years": ["1786", "1787", "1803"] }, { "name": "I Filosofi immaginari", "years": ["1780"] }, { "name": "Il geloso in cimento", "years": ["1779"] }, { "name": "Il matrimonio segreto", "years": ["1801"] }, { "name": "L' Avaro", "years": ["1787"] }, { "name": "L’incognita perseguitata", "years": ["1776"] }, { "name": "La finta giardiniera", "years": ["1778"] }] }, { "id": "Braunschweig", "title": "Braunschweig", "geometry": { "type": "Point", "coordinates": [10.509338513695626, 52.269168267349414] }, "opere": [{ "name": "Axur re d'Ormus", "years": ["1794"] }, { "name": "Il geloso in cimento", "years": ["1781"] }, { "name": "L' Avaro", "years": ["1782"] }, { "name": "La clemenza di Tito", "years": ["1799"] }, { "name": "La forza delle donne", "years": ["1781"] }, { "name": "L'arbore di Diana", "years": ["1789"] }, { "name": "Una cosa rara", "years": ["1788", "1795"] }] }, { "id": "Wien", "title": "Wien", "geometry": { "type": "Point", "coordinates": [16.336594141635345, 48.24038301149403] }, "opere": [{ "name": "Axur re d'Ormus", "years": ["1787", "1788"] }, { "name": "Che originali", "years": ["1803"] }, { "name": "Così fan tutte", "years": ["1790"] }, { "name": "Don Giovanni", "years": ["1788"] }, { "name": "Il burbero di buon cuore", "years": ["1786"] }, { "name": "Il matrimonio segreto", "years": ["1792"] }, { "name": "Il talismano", "years": ["1788"] }, { "name": "La cifra", "years": ["1789"] }, { "name": "La scuola dei maritati", "years": ["1796"] }, { "name": "L'arbore di Diana", "years": ["1787", "1787"] }, { "name": "Le nozze di Figaro", "years": ["1786"] }, { "name": "Una cosa rara", "years": ["1786", "1787"] }] }, { "id": "Genova", "title": "Genova", "geometry": { "type": "Point", "coordinates": [8.949324417579788, 44.43021661082748] }, "opere": [{ "name": "Che originali", "years": ["1802"] }, { "name": "Ginevra di Scozia", "years": ["1803"] }, { "name": "L' Amor coniugale", "years": ["1807"] }] }, { "id": "Breslau", "title": "Breslau", "geometry": { "type": "Point", "coordinates": [17.044992144980665, 51.12236534383523] }, "opere": [{ "name": "Così fan tutte", "years": ["1811", "1814", "1821", "1824", "1829", "1832"] }] }, { "id": "Donaueschingen", "title": "Donaueschingen", "geometry": { "type": "Point", "coordinates": [8.498447178387188, 47.98783157749402] }, "opere": [{ "name": "Così fan tutte", "years": ["1791"] }, { "name": "L'arbore di Diana", "years": ["1789"] }, { "name": "Una cosa rara", "years": ["1788"] }] }, { "id": "Osnabrück", "title": "Osnabrück", "geometry": { "type": "Point", "coordinates": [8.03182109998037, 52.280946361545816] }, "opere": [{ "name": "Così fan tutte", "years": ["1828"] }, { "name": "La clemenza di Tito", "years": ["1825", "1830"] }, { "name": "Una cosa rara", "years": ["1829"] }] }, { "id": "Dessau", "title": "Dessau", "geometry": { "type": "Point", "coordinates": [12.23835330054324, 51.83050692938663] }, "opere": [{ "name": "Così fan tutte", "years": ["1805"] }, { "name": "Il matrimonio segreto", "years": ["1796"] }] }, { "id": "Praha", "title": "Praha", "geometry": { "type": "Point", "coordinates": [14.427850973738192, 50.0750115881651] }, "opere": [{ "name": "Don Giovanni", "years": ["1787"] }, { "name": "Il geloso in cimento", "years": ["1775"] }, { "name": "La clemenza di Tito", "years": ["1791"] }, { "name": "Le nozze di Figaro", "years": ["1787"] }] }, { "id": "Amsterdam", "title": "Amsterdam", "geometry": { "type": "Point", "coordinates": [4.872272590512766, 52.39686546477397] }, "opere": [{ "name": "Don Giovanni", "years": ["1794"] }] }, { "id": "Verona", "title": "Verona", "geometry": { "type": "Point", "coordinates": [10.986085557820767, 45.45799355742827] }, "opere": [{ "name": "Elfrida", "years": ["1796"] }] }, { "id": "Valletta", "title": "Valletta", "geometry": { "type": "Point", "coordinates": [14.527628236582373, 35.9019143525629] }, "opere": [{ "name": "Elisa", "years": ["1801"] }] }, { "id": "Milano", "title": "Milano", "geometry": { "type": "Point", "coordinates": [9.181844510893601, 45.49128554321814] }, "opere": [{ "name": "Eraldo ed Emma", "years": ["1805"] }, { "name": "Gli Orazi ed i Curiazi", "years": ["1798"] }, { "name": "Il talismano", "years": ["1779"] }] }, { "id": "Ravenna", "title": "Ravenna", "geometry": { "type": "Point", "coordinates": [12.24358035628033, 44.44190980667087] }, "opere": [{ "name": "Eraldo ed Emma", "years": ["1809"] }] }, { "id": "Frankfurt am Main", "title": "Frankfurt am Main", "geometry": { "type": "Point", "coordinates": [8.733857890550357, 50.139530654996186] }, "opere": [{ "name": "Ginevra di Scozia", "years": ["1802"] }, { "name": "La finta giardiniera", "years": ["1782"] }] }, { "id": "Leipzig", "title": "Leipzig", "geometry": { "type": "Point", "coordinates": [12.366118345079634, 51.347063263096274] }, "opere": [{ "name": "Gli Orazi ed i Curiazi", "years": ["1786"] }] }, { "id": "Pillnitz", "title": "Pillnitz", "geometry": { "type": "Point", "coordinates": [13.87972675009762, 51.00997731315861] }, "opere": [{ "name": "I Filosofi immaginari", "years": ["1793"] }, { "name": "La cifra", "years": ["1790"] }] }, { "id": "Detmold", "title": "Detmold", "geometry": { "type": "Point", "coordinates": [8.86557697748835, 51.938107304713085] }, "opere": [{ "name": "Il crociato in Egitto", "years": ["1833"] }, { "name": "Le nozze di Figaro", "years": ["1829"] }, { "name": "Una cosa rara", "years": ["1827"] }] }, { "id": "Carskoe Selo", "title": "Carskoe Selo", "geometry": { "type": "Point", "coordinates": [30.394503192438187, 59.717338594828114] }, "opere": [{ "name": "Il Demetrio", "years": ["1779"] }] }, { "id": "Firenze", "title": "Firenze", "geometry": { "type": "Point", "coordinates": [11.175485712359881, 43.79889113503871] }, "opere": [{ "name": "Il finto principe", "years": ["1775"] }, { "name": "Il matrimonio per inganno", "years": ["1779"] }, { "name": "L' Avaro", "years": ["1777"] }, { "name": "La vanità delusa", "years": ["1784"] }, { "name": "L'imbroglio delle tre spose", "years": ["1781"] }] }, { "id": "Graz", "title": "Graz", "geometry": { "type": "Point", "coordinates": [15.31606928487744, 47.116779778085586] }, "opere": [{ "name": "Il geloso in cimento", "years": ["1779"] }] }, { "id": "Castelnuovo", "title": "Castelnuovo", "geometry": { "type": "Point", "coordinates": [13.849914024134497, 42.627852563179594] }, "opere": [{ "name": "Il geloso in cimento", "years": ["1785"] }] }, { "id": "Salzburg", "title": "Salzburg", "geometry": { "type": "Point", "coordinates": [12.95267781693314, 47.83156049437746] }, "opere": [{ "name": "Il re pastore", "years": ["1775"] }] }, { "id": "Regensburg", "title": "Regensburg", "geometry": { "type": "Point", "coordinates": [12.0808368161296, 49.01331901352374] }, "opere": [{ "name": "Isabella e Rodrigo", "years": ["1785"] }, { "name": "L' Avaro", "years": ["1775"] }, { "name": "La buona figliuola", "years": ["1778", "1782"] }, { "name": "La forza delle donne", "years": ["1785"] }] }, { "id": "Hannover", "title": "Hannover", "geometry": { "type": "Point", "coordinates": [9.718960579772038, 52.3968341779847] }, "opere": [{ "name": "La buona figliuola", "years": ["1777"] }] }, { "id": "Bad Lauchstädt", "title": "Bad Lauchstädt", "geometry": { "type": "Point", "coordinates": [11.842973944538112, 51.384459424082195] }, "opere": [{ "name": "La cifra", "years": ["1793"] }] }, { "id": "Karlsruhe", "title": "Karlsruhe", "geometry": { "type": "Point", "coordinates": [8.388022471367961, 49.04464977777094] }, "opere": [{ "name": "La clemenza di Tito", "years": ["1812"] }] }, { "id": "London", "title": "London", "geometry": { "type": "Point", "coordinates": [-0.1982040265378188, 51.538903154609834] }, "opere": [{ "name": "La finta giardiniera", "years": ["1775"] }, { "name": "La locanda", "years": ["1791"] }, { "name": "La scuola dei maritati", "years": ["1795"] }] }, { "id": "Udine", "title": "Udine", "geometry": { "type": "Point", "coordinates": [13.179066927928623, 46.094146455223594] }, "opere": [{ "name": "La scuola dei maritati", "years": ["1800"] }] }, { "id": "Potsdam", "title": "Potsdam", "geometry": { "type": "Point", "coordinates": [13.057396980969225, 52.39157672404678] }, "opere": [{ "name": "Le nozze di Figaro", "years": ["1790"] }] }, { "id": "Vicenza", "title": "Vicenza", "geometry": { "type": "Point", "coordinates": [11.524167338813312, 45.55128322864351] }, "opere": [{ "name": "L'Olimpiade", "years": ["1784"] }, { "name": "Olimpiade", "years": ["1784"] }] }, { "id": "Faenza", "title": "Faenza", "geometry": { "type": "Point", "coordinates": [11.877841835779298, 44.28995439047325] }, "opere": [{ "name": "Una cosa rara", "years": ["1790"] }] }];
+
+        citySeries.data.setAll(cities);
+
+
+        function destination_geometry(destinations) {
+
+            let edges = []
+
+            for (did of destinations) {
+
+                new_edge = {
+                    "source": did.source,
+                    "target": did.target,
+                    "opera": did.opera,
+                    "color": am5.color(legend.find(el => el.opera == did.opera).color)
+                }
+                edges.push(new_edge);
+            }
+            return edges;
+        }
+
+        edges = destination_geometry(destinations);
+
+        am5.array.each(edges, function (did) {
+            var sourceDataItem = citySeries.getDataItemById(did.source);
+            var destinationDataItem = citySeries.getDataItemById(did.target);
+
+            var lineSeries = chart.series.push(am5map.MapLineSeries.new(root, {
+                stroke: did.color,
+                strokeWidth: 2
+            })
+            );
+
+            lineDataItem = lineSeries.pushDataItem({ geometry: { type: "LineString", coordinates: [[sourceDataItem.get("longitude"), sourceDataItem.get("latitude")], [destinationDataItem.get("longitude"), destinationDataItem.get("latitude")]] } });
+
+            arrowSeries.pushDataItem({
+                lineDataItem: lineDataItem,
+                positionOnLine: 0.5,
+                autoRotate: true
+            });
+        })
+
+
+        //Zoom the map to focus on Europe
+        polygonSeries.events.on("datavalidated", function () {
+            chart.zoomToGeoPoint({ longitude: 10, latitude: 52 }, 3.5);
+        })
+
+
+        // Make stuff animate on load
+        chart.appear(1000, 100);
+
+
+    }); // end am5.ready()
+
+
+    function cleanEdges() {
+        for (let i = chart.series._values.length - 1; i > 2; i--) {
+            chart.series.removeIndex(i);
+        }
+    }
+
+
+    function shiftTitle(title) {
+        let new_color_edges = [];
+
+        let grey_edges = edges.filter(el => el.opera != title);
+        let black_edges = edges.filter(el => el.opera == title);
+
+        new_color_edges = grey_edges.concat(black_edges);
+
+        return new_color_edges
+    }
+
+
+    function generate_new_edges(title, highlith_edges) {
+        // new arrow series
+        arrowSeries = chart.series.push(
+            am5map.MapPointSeries.new(root, {})
+        );
+
+        arrowSeries.bullets.push(function () {
+            var arrow = am5.Graphics.new(root, {
+                fill: am5.color(0x000000),
+                stroke: am5.color(0x000000),
+                draw: function (display) {
+                    display.moveTo(0, -3);
+                    display.lineTo(8, 0);
+                    display.lineTo(0, 3);
+                    display.lineTo(0, -3);
+                }
+            });
+
+            return am5.Bullet.new(root, {
+                sprite: arrow
+            });
+        });
+
+        let color;
+
+        for (el of highlith_edges) {
+            var sourceDataItem = citySeries.getDataItemById(el.source);
+            var destinationDataItem = citySeries.getDataItemById(el.target);
+
+            if (el.opera == title) {
+                color = am5.color("#00000")
+                width = 8
+            } else {
+                color = am5.color("#a9a9a9")
+                width = 1
+            }
+
+            var lineSeries = chart.series.push(am5map.MapLineSeries.new(root, {
+                stroke: color
+            })
+            );
+
+            lineDataItem = lineSeries.pushDataItem({ geometry: { type: "LineString", coordinates: [[sourceDataItem.get("longitude"), sourceDataItem.get("latitude")], [destinationDataItem.get("longitude"), destinationDataItem.get("latitude")]] } });
+
+            arrowSeries.pushDataItem({
+                lineDataItem: lineDataItem,
+                positionOnLine: 0.5,
+                autoRotate: true
+            });
+        }
+    }
+
+
+    function highLightEdges(title) {
+        cleanEdges();
+        let highlith_edges = shiftTitle(title);
+        generate_new_edges(title, highlith_edges);
+    }
+
+
+    // Edges Info and colors logic
+    function showTitles(d) {
+
+        let h_title = document.getElementById("h-title");
+        let opere = document.getElementById("opere")
+        h_title.innerHTML = d.id;
+        opere.innerHTML = "";
+        for (op of d.opere) {
+            opere.innerHTML = opere.innerHTML + op.name + ": ";
+            for (y of op.years) {
+                opere.innerHTML = opere.innerHTML + y + " ";
+            }
+            opere.innerHTML = opere.innerHTML + "<br>";
+        }
+    }
+
+
+    // Legend setup logic
+    function edgesLegend(legend) {
+        let table = document.getElementById("operaLegend")
+        let tr
+        let td1
+        let td2
+        let hrline1
+        let hrline2
+
+        for (let i = 0; i < legend.length; i += 2) {
+
+            tr = document.createElement("tr")
+            td1 = document.createElement("td")
+            td2 = document.createElement("td")
+
+            td1.style.background = legend[i].color
+            td1.innerHTML = legend[i].opera
+            td1.onclick = function () {
+                let title = event.target.innerHTML
+                highLightEdges(title)
+            }
+
+            if (legend[i + 1]) {
+                td2.style.background = legend[i + 1].color
+                td2.innerHTML = legend[i + 1].opera
+                td2.onclick = function () {
+                    let title = event.target.innerHTML
+                    highLightEdges(title)
+                }
+            }
+            else {
+                td2.innerHTML = "Nan"
+            }
+
+            tr.appendChild(td1)
+            tr.appendChild(td2)
+            table.appendChild(tr)
+        }
+    }
+
+    edgesLegend(legend)
+
+</script>
+
+</html>

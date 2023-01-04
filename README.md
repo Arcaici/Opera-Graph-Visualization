@@ -41,10 +41,17 @@ The edges represent this common feature between the various cities in question.
 
 ## Force Directed Graph
 The force directed graph aim to focus on reletionship between librettist and composer.
-Blu nodes reppresent composer, while orange nodes are librettist. These nodes are connected by edges if and only if they worked toghether at least one time, while edges color represent the first year that a librettist and a composer worked toghether.  
+Blu nodes reppresent composer, while orange nodes are librettist. These nodes are connected by edges if and only if they worked toghether at least one time, while edges color and thickness, represent respectively the first year that a librettist and a composer worked toghether and  the number of time that they worked toghether.  
 
 ![Force Directed Graph](https://github.com/Arcaici/Opera-Graph-Visualization/blob/main/images/force_main.png)
 
-
 ### Interactions
+When a click event happen on a edge the two nodes connected to that edge change color to red, while dark grey rectangle under nodes legend,it shows operas titles and number of operas which librettist and composer made toghether.
 
+![Force Directed Graph Interactions](https://github.com/Arcaici/Opera-Graph-Visualization/blob/main/images/force_interaction.png)
+
+#### Header
+The header is a composition of 3 button:
+1- Mappa del Mondo: Load Map graph 
+2- Rigenera Colori: Reload the page and assign new edges colors 
+3- Reset info: Restore Information and red nodes to their original appearance.

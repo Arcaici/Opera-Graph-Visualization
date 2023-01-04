@@ -17,7 +17,7 @@ The nodes represent the cities while the edges between two nodes are present if 
 A second map graph shows only a few cities that hosted a opera that took place nowhere else.  
 The edges represent this common feature between the various cities in question.  
 
-## Grafo Force directed
+## Force Directed Graph
 
 ### Domanda (da ridefinire)
 * esiste una relazione tra i librettisti e compositori che si sono esibiti nella stessa città?

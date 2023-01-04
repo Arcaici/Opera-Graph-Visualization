@@ -1,0 +1,1701 @@
+[
+    {
+        "id": "Sankt Petersburg",
+        "title": "Sankt Petersburg",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                30.35167579963314,
+                59.93370893284516
+            ]
+        },
+        "opere": [
+            {
+                "name": "Achille in Sciro",
+                "years": [
+                    "1778"
+                ]
+            },
+            {
+                "name": "Alcide al bivio",
+                "years": [
+                    "1780"
+                ]
+            },
+            {
+                "name": "I Filosofi immaginari",
+                "years": [
+                    "1779",
+                    "1779"
+                ]
+            },
+            {
+                "name": "Il mondo della luna",
+                "years": [
+                    "1782",
+                    "1783"
+                ]
+            },
+            {
+                "name": "Nitteti",
+                "years": [
+                    "1777",
+                    "1778"
+                ]
+            }
+        ]
+    },
+    {
+        "id": "Venezia",
+        "title": "Venezia",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                12.309056323431884,
+                45.434618615660035
+            ]
+        },
+        "opere": [
+            {
+                "name": "Adelaide di Guesclino",
+                "years": [
+                    "1799"
+                ]
+            },
+            {
+                "name": "Adriano in Siria",
+                "years": [
+                    "1798"
+                ]
+            },
+            {
+                "name": "Azor re di Kibinga",
+                "years": [
+                    "1779"
+                ]
+            },
+            {
+                "name": "Che originali",
+                "years": [
+                    "1798",
+                    "1815"
+                ]
+            },
+            {
+                "name": "Didone abbandonata",
+                "years": [
+                    "1775"
+                ]
+            },
+            {
+                "name": "Elisa",
+                "years": [
+                    "1804"
+                ]
+            },
+            {
+                "name": "Emma di Resburgo",
+                "years": [
+                    "1819"
+                ]
+            },
+            {
+                "name": "Ezio",
+                "years": [
+                    "1778"
+                ]
+            },
+            {
+                "name": "Gli Orazi ed i Curiazi",
+                "years": [
+                    "1794",
+                    "1796",
+                    "1797"
+                ]
+            },
+            {
+                "name": "Gli sciti",
+                "years": [
+                    "1800"
+                ]
+            },
+            {
+                "name": "I Filosofi immaginari",
+                "years": [
+                    "1782"
+                ]
+            },
+            {
+                "name": "Il crociato in Egitto",
+                "years": [
+                    "1824"
+                ]
+            },
+            {
+                "name": "Il Demofoonte",
+                "years": [
+                    "1775"
+                ]
+            },
+            {
+                "name": "Il matrimonio segreto",
+                "years": [
+                    "1794"
+                ]
+            },
+            {
+                "name": "Il servo padrone",
+                "years": [
+                    "1794"
+                ]
+            },
+            {
+                "name": "Isabella e Rodrigo",
+                "years": [
+                    "1776"
+                ]
+            },
+            {
+                "name": "L' Avaro",
+                "years": [
+                    "1775"
+                ]
+            },
+            {
+                "name": "La forza delle donne",
+                "years": [
+                    "1778"
+                ]
+            },
+            {
+                "name": "La roccia di Frauenstein",
+                "years": [
+                    "1805"
+                ]
+            },
+            {
+                "name": "La scuola de' gelosi",
+                "years": [
+                    "1778"
+                ]
+            },
+            {
+                "name": "La scuola dei maritati",
+                "years": [
+                    "1795"
+                ]
+            },
+            {
+                "name": "L'arbore di Diana",
+                "years": [
+                    "1783"
+                ]
+            },
+            {
+                "name": "L'imbroglio delle tre spose",
+                "years": [
+                    "1781"
+                ]
+            },
+            {
+                "name": "Lo sposo disperato",
+                "years": [
+                    "1777",
+                    "1778"
+                ]
+            },
+            {
+                "name": "L'Olimpiade",
+                "years": [
+                    "1784"
+                ]
+            },
+            {
+                "name": "Nitteti",
+                "years": [
+                    "1780"
+                ]
+            },
+            {
+                "name": "Saffo",
+                "years": [
+                    "1794"
+                ]
+            },
+            {
+                "name": "Semiramide",
+                "years": [
+                    "1823"
+                ]
+            },
+            {
+                "name": "Tancredi",
+                "years": [
+                    "1813"
+                ]
+            },
+            {
+                "name": "Telemaco nell'isola di Calipso",
+                "years": [
+                    "1797"
+                ]
+            },
+            {
+                "name": "Una cosa rara",
+                "years": [
+                    "1788"
+                ]
+            }
+        ]
+    },
+    {
+        "id": "Dresden",
+        "title": "Dresden",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                13.7258255689387,
+                51.04885065748165
+            ]
+        },
+        "opere": [
+            {
+                "name": "Adelaide di Guesclino",
+                "years": [
+                    "1808"
+                ]
+            },
+            {
+                "name": "Axur re d'Ormus",
+                "years": [
+                    "1789"
+                ]
+            },
+            {
+                "name": "Così fan tutte",
+                "years": [
+                    "1791",
+                    "1830"
+                ]
+            },
+            {
+                "name": "Don Giovanni",
+                "years": [
+                    "1814",
+                    "1821",
+                    "1832"
+                ]
+            },
+            {
+                "name": "Il geloso in cimento",
+                "years": [
+                    "1775"
+                ]
+            },
+            {
+                "name": "Il matrimonio segreto",
+                "years": [
+                    "1792",
+                    "1830"
+                ]
+            },
+            {
+                "name": "Le nozze di Figaro",
+                "years": [
+                    "1815",
+                    "1829"
+                ]
+            }
+        ]
+    },
+    {
+        "id": "Hamburg",
+        "title": "Hamburg",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                9.989278274731264,
+                53.5439039631002
+            ]
+        },
+        "opere": [
+            {
+                "name": "Adelaide di Guesclino",
+                "years": [
+                    "1815"
+                ]
+            },
+            {
+                "name": "Don Giovanni",
+                "years": [
+                    "1789"
+                ]
+            },
+            {
+                "name": "Il crociato in Egitto",
+                "years": [
+                    "1832"
+                ]
+            },
+            {
+                "name": "Il geloso in cimento",
+                "years": [
+                    "1781"
+                ]
+            },
+            {
+                "name": "Il talismano",
+                "years": [
+                    "1794"
+                ]
+            },
+            {
+                "name": "La buona figliuola",
+                "years": [
+                    "1778"
+                ]
+            },
+            {
+                "name": "La cifra",
+                "years": [
+                    "1793"
+                ]
+            },
+            {
+                "name": "La scuola de' gelosi",
+                "years": [
+                    "1795"
+                ]
+            },
+            {
+                "name": "L'arbore di Diana",
+                "years": [
+                    "1788"
+                ]
+            },
+            {
+                "name": "Semiramide",
+                "years": [
+                    "1830"
+                ]
+            }
+        ]
+    },
+    {
+        "id": "Padova",
+        "title": "Padova",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                11.87812507896718,
+                45.40679797600407
+            ]
+        },
+        "opere": [
+            {
+                "name": "Adriano in Siria",
+                "years": [
+                    "1777"
+                ]
+            },
+            {
+                "name": "Che originali",
+                "years": [
+                    "1805"
+                ]
+            },
+            {
+                "name": "L' Amor coniugale",
+                "years": [
+                    "1805"
+                ]
+            }
+        ]
+    },
+    {
+        "id": "Napoli",
+        "title": "Napoli",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                14.266838282176906,
+                40.84834906599953
+            ]
+        },
+        "opere": [
+            {
+                "name": "Alessandro nell'Indie",
+                "years": [
+                    "1775"
+                ]
+            },
+            {
+                "name": "Antigono",
+                "years": [
+                    "1784",
+                    "1785",
+                    "1795"
+                ]
+            },
+            {
+                "name": "Artaserse",
+                "years": [
+                    "1784"
+                ]
+            },
+            {
+                "name": "Catone in Utica",
+                "years": [
+                    "1789"
+                ]
+            },
+            {
+                "name": "Didone abbandonata",
+                "years": [
+                    "1780",
+                    "1788",
+                    "1794"
+                ]
+            },
+            {
+                "name": "Elfrida",
+                "years": [
+                    "1782",
+                    "1792",
+                    "1793",
+                    "1794"
+                ]
+            },
+            {
+                "name": "Elvira",
+                "years": [
+                    "1793",
+                    "1794"
+                ]
+            },
+            {
+                "name": "Ginevra di Scozia",
+                "years": [
+                    "1801"
+                ]
+            },
+            {
+                "name": "Il geloso in cimento",
+                "years": [
+                    "1788"
+                ]
+            },
+            {
+                "name": "Il matrimonio segreto",
+                "years": [
+                    "1793"
+                ]
+            },
+            {
+                "name": "Ipermestra",
+                "years": [
+                    "1780"
+                ]
+            },
+            {
+                "name": "La clemenza di Tito",
+                "years": [
+                    "1809"
+                ]
+            },
+            {
+                "name": "La finta giardiniera",
+                "years": [
+                    "1775"
+                ]
+            },
+            {
+                "name": "La locanda",
+                "years": [
+                    "1792"
+                ]
+            },
+            {
+                "name": "L'eroe cinese",
+                "years": [
+                    "1782"
+                ]
+            },
+            {
+                "name": "Olimpiade",
+                "years": [
+                    "1786",
+                    "1796"
+                ]
+            },
+            {
+                "name": "Una cosa rara",
+                "years": [
+                    "1789"
+                ]
+            }
+        ]
+    },
+    {
+        "id": "Roma",
+        "title": "Roma",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                12.48352678418407,
+                41.908002951825644
+            ]
+        },
+        "opere": [
+            {
+                "name": "Alessandro nell'Indie",
+                "years": [
+                    "1781"
+                ]
+            },
+            {
+                "name": "Artaserse",
+                "years": [
+                    "1788"
+                ]
+            },
+            {
+                "name": "Caio Mario",
+                "years": [
+                    "1780"
+                ]
+            },
+            {
+                "name": "Gli Orazi ed i Curiazi",
+                "years": [
+                    "1797"
+                ]
+            },
+            {
+                "name": "I cherusci",
+                "years": [
+                    "1808"
+                ]
+            },
+            {
+                "name": "Il curioso indiscreto",
+                "years": [
+                    "1777"
+                ]
+            },
+            {
+                "name": "Olimpiade",
+                "years": [
+                    "1778"
+                ]
+            },
+            {
+                "name": "Una cosa rara",
+                "years": [
+                    "1788"
+                ]
+            }
+        ]
+    },
+    {
+        "id": "Bologna",
+        "title": "Bologna",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                11.339190587672393,
+                44.50153392281393
+            ]
+        },
+        "opere": [
+            {
+                "name": "Antigono",
+                "years": [
+                    "1782"
+                ]
+            },
+            {
+                "name": "Elfrida",
+                "years": [
+                    "1796"
+                ]
+            },
+            {
+                "name": "Lo sposo disperato",
+                "years": [
+                    "1777"
+                ]
+            },
+            {
+                "name": "Una cosa rara",
+                "years": [
+                    "1788"
+                ]
+            }
+        ]
+    },
+    {
+        "id": "Torino",
+        "title": "Torino",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                7.655927411000004,
+                45.10461427516563
+            ]
+        },
+        "opere": [
+            {
+                "name": "Artaserse",
+                "years": [
+                    "1784",
+                    "1785"
+                ]
+            },
+            {
+                "name": "La forza delle donne",
+                "years": [
+                    "1780"
+                ]
+            }
+        ]
+    },
+    {
+        "id": "Weimar",
+        "title": "Weimar",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                11.326952960572052,
+                50.98117812118344
+            ]
+        },
+        "opere": [
+            {
+                "name": "Axur re d'Ormus",
+                "years": [
+                    "1800"
+                ]
+            },
+            {
+                "name": "Così fan tutte",
+                "years": [
+                    "1797"
+                ]
+            },
+            {
+                "name": "Don Giovanni",
+                "years": [
+                    "1792"
+                ]
+            },
+            {
+                "name": "Ginevra di Scozia",
+                "years": [
+                    "1811"
+                ]
+            },
+            {
+                "name": "I Filosofi immaginari",
+                "years": [
+                    "1791"
+                ]
+            },
+            {
+                "name": "Il geloso in cimento",
+                "years": [
+                    "1791"
+                ]
+            },
+            {
+                "name": "Il matrimonio segreto",
+                "years": [
+                    "1796"
+                ]
+            },
+            {
+                "name": "La cifra",
+                "years": [
+                    "1793",
+                    "1795"
+                ]
+            },
+            {
+                "name": "La clemenza di Tito",
+                "years": [
+                    "1799"
+                ]
+            },
+            {
+                "name": "La scuola dei maritati",
+                "years": [
+                    "1799"
+                ]
+            },
+            {
+                "name": "L'arbore di Diana",
+                "years": [
+                    "1793"
+                ]
+            },
+            {
+                "name": "Le nozze di Figaro",
+                "years": [
+                    "1793"
+                ]
+            },
+            {
+                "name": "Semiramide",
+                "years": [
+                    "1825"
+                ]
+            },
+            {
+                "name": "Tancredi",
+                "years": [
+                    "1817"
+                ]
+            },
+            {
+                "name": "Una cosa rara",
+                "years": [
+                    "1791"
+                ]
+            }
+        ]
+    },
+    {
+        "id": "Bonn",
+        "title": "Bonn",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                7.092999512455711,
+                50.76727422833096
+            ]
+        },
+        "opere": [
+            {
+                "name": "Axur re d'Ormus",
+                "years": [
+                    "1788"
+                ]
+            }
+        ]
+    },
+    {
+        "id": "Paris",
+        "title": "Paris",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                2.348747661558289,
+                48.85681441359952
+            ]
+        },
+        "opere": [
+            {
+                "name": "Axur re d'Ormus",
+                "years": [
+                    "1786",
+                    "1787",
+                    "1803"
+                ]
+            },
+            {
+                "name": "I Filosofi immaginari",
+                "years": [
+                    "1780"
+                ]
+            },
+            {
+                "name": "Il geloso in cimento",
+                "years": [
+                    "1779"
+                ]
+            },
+            {
+                "name": "Il matrimonio segreto",
+                "years": [
+                    "1801"
+                ]
+            },
+            {
+                "name": "L' Avaro",
+                "years": [
+                    "1787"
+                ]
+            },
+            {
+                "name": "L’incognita perseguitata",
+                "years": [
+                    "1776"
+                ]
+            },
+            {
+                "name": "La finta giardiniera",
+                "years": [
+                    "1778"
+                ]
+            }
+        ]
+    },
+    {
+        "id": "Braunschweig",
+        "title": "Braunschweig",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                10.509338513695626,
+                52.269168267349414
+            ]
+        },
+        "opere": [
+            {
+                "name": "Axur re d'Ormus",
+                "years": [
+                    "1794"
+                ]
+            },
+            {
+                "name": "Il geloso in cimento",
+                "years": [
+                    "1781"
+                ]
+            },
+            {
+                "name": "L' Avaro",
+                "years": [
+                    "1782"
+                ]
+            },
+            {
+                "name": "La clemenza di Tito",
+                "years": [
+                    "1799"
+                ]
+            },
+            {
+                "name": "La forza delle donne",
+                "years": [
+                    "1781"
+                ]
+            },
+            {
+                "name": "L'arbore di Diana",
+                "years": [
+                    "1789"
+                ]
+            },
+            {
+                "name": "Una cosa rara",
+                "years": [
+                    "1788",
+                    "1795"
+                ]
+            }
+        ]
+    },
+    {
+        "id": "Wien",
+        "title": "Wien",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                16.336594141635345,
+                48.24038301149403
+            ]
+        },
+        "opere": [
+            {
+                "name": "Axur re d'Ormus",
+                "years": [
+                    "1787",
+                    "1788"
+                ]
+            },
+            {
+                "name": "Che originali",
+                "years": [
+                    "1803"
+                ]
+            },
+            {
+                "name": "Così fan tutte",
+                "years": [
+                    "1790"
+                ]
+            },
+            {
+                "name": "Don Giovanni",
+                "years": [
+                    "1788"
+                ]
+            },
+            {
+                "name": "Il burbero di buon cuore",
+                "years": [
+                    "1786"
+                ]
+            },
+            {
+                "name": "Il matrimonio segreto",
+                "years": [
+                    "1792"
+                ]
+            },
+            {
+                "name": "Il talismano",
+                "years": [
+                    "1788"
+                ]
+            },
+            {
+                "name": "La cifra",
+                "years": [
+                    "1789"
+                ]
+            },
+            {
+                "name": "La scuola dei maritati",
+                "years": [
+                    "1796"
+                ]
+            },
+            {
+                "name": "L'arbore di Diana",
+                "years": [
+                    "1787",
+                    "1787"
+                ]
+            },
+            {
+                "name": "Le nozze di Figaro",
+                "years": [
+                    "1786"
+                ]
+            },
+            {
+                "name": "Una cosa rara",
+                "years": [
+                    "1786",
+                    "1787"
+                ]
+            }
+        ]
+    },
+    {
+        "id": "Genova",
+        "title": "Genova",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                8.949324417579788,
+                44.43021661082748
+            ]
+        },
+        "opere": [
+            {
+                "name": "Che originali",
+                "years": [
+                    "1802"
+                ]
+            },
+            {
+                "name": "Ginevra di Scozia",
+                "years": [
+                    "1803"
+                ]
+            },
+            {
+                "name": "L' Amor coniugale",
+                "years": [
+                    "1807"
+                ]
+            }
+        ]
+    },
+    {
+        "id": "Breslau",
+        "title": "Breslau",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                17.044992144980665,
+                51.12236534383523
+            ]
+        },
+        "opere": [
+            {
+                "name": "Così fan tutte",
+                "years": [
+                    "1811",
+                    "1814",
+                    "1821",
+                    "1824",
+                    "1829",
+                    "1832"
+                ]
+            }
+        ]
+    },
+    {
+        "id": "Donaueschingen",
+        "title": "Donaueschingen",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                8.498447178387188,
+                47.98783157749402
+            ]
+        },
+        "opere": [
+            {
+                "name": "Così fan tutte",
+                "years": [
+                    "1791"
+                ]
+            },
+            {
+                "name": "L'arbore di Diana",
+                "years": [
+                    "1789"
+                ]
+            },
+            {
+                "name": "Una cosa rara",
+                "years": [
+                    "1788"
+                ]
+            }
+        ]
+    },
+    {
+        "id": "Osnabrück",
+        "title": "Osnabrück",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                8.03182109998037,
+                52.280946361545816
+            ]
+        },
+        "opere": [
+            {
+                "name": "Così fan tutte",
+                "years": [
+                    "1828"
+                ]
+            },
+            {
+                "name": "La clemenza di Tito",
+                "years": [
+                    "1825",
+                    "1830"
+                ]
+            },
+            {
+                "name": "Una cosa rara",
+                "years": [
+                    "1829"
+                ]
+            }
+        ]
+    },
+    {
+        "id": "Dessau",
+        "title": "Dessau",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                12.23835330054324,
+                51.83050692938663
+            ]
+        },
+        "opere": [
+            {
+                "name": "Così fan tutte",
+                "years": [
+                    "1805"
+                ]
+            },
+            {
+                "name": "Il matrimonio segreto",
+                "years": [
+                    "1796"
+                ]
+            }
+        ]
+    },
+    {
+        "id": "Praha",
+        "title": "Praha",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                14.427850973738192,
+                50.0750115881651
+            ]
+        },
+        "opere": [
+            {
+                "name": "Don Giovanni",
+                "years": [
+                    "1787"
+                ]
+            },
+            {
+                "name": "Il geloso in cimento",
+                "years": [
+                    "1775"
+                ]
+            },
+            {
+                "name": "La clemenza di Tito",
+                "years": [
+                    "1791"
+                ]
+            },
+            {
+                "name": "Le nozze di Figaro",
+                "years": [
+                    "1787"
+                ]
+            }
+        ]
+    },
+    {
+        "id": "Amsterdam",
+        "title": "Amsterdam",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                4.872272590512766,
+                52.39686546477397
+            ]
+        },
+        "opere": [
+            {
+                "name": "Don Giovanni",
+                "years": [
+                    "1794"
+                ]
+            }
+        ]
+    },
+    {
+        "id": "Verona",
+        "title": "Verona",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                10.986085557820767,
+                45.45799355742827
+            ]
+        },
+        "opere": [
+            {
+                "name": "Elfrida",
+                "years": [
+                    "1796"
+                ]
+            }
+        ]
+    },
+    {
+        "id": "Valletta",
+        "title": "Valletta",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                14.527628236582373,
+                35.9019143525629
+            ]
+        },
+        "opere": [
+            {
+                "name": "Elisa",
+                "years": [
+                    "1801"
+                ]
+            }
+        ]
+    },
+    {
+        "id": "Milano",
+        "title": "Milano",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                9.181844510893601,
+                45.49128554321814
+            ]
+        },
+        "opere": [
+            {
+                "name": "Eraldo ed Emma",
+                "years": [
+                    "1805"
+                ]
+            },
+            {
+                "name": "Gli Orazi ed i Curiazi",
+                "years": [
+                    "1798"
+                ]
+            },
+            {
+                "name": "Il talismano",
+                "years": [
+                    "1779"
+                ]
+            }
+        ]
+    },
+    {
+        "id": "Ravenna",
+        "title": "Ravenna",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                12.24358035628033,
+                44.44190980667087
+            ]
+        },
+        "opere": [
+            {
+                "name": "Eraldo ed Emma",
+                "years": [
+                    "1809"
+                ]
+            }
+        ]
+    },
+    {
+        "id": "Frankfurt am Main",
+        "title": "Frankfurt am Main",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                8.733857890550357,
+                50.139530654996186
+            ]
+        },
+        "opere": [
+            {
+                "name": "Ginevra di Scozia",
+                "years": [
+                    "1802"
+                ]
+            },
+            {
+                "name": "La finta giardiniera",
+                "years": [
+                    "1782"
+                ]
+            }
+        ]
+    },
+    {
+        "id": "Leipzig",
+        "title": "Leipzig",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                12.366118345079634,
+                51.347063263096274
+            ]
+        },
+        "opere": [
+            {
+                "name": "Gli Orazi ed i Curiazi",
+                "years": [
+                    "1786"
+                ]
+            }
+        ]
+    },
+    {
+        "id": "Pillnitz",
+        "title": "Pillnitz",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                13.87972675009762,
+                51.00997731315861
+            ]
+        },
+        "opere": [
+            {
+                "name": "I Filosofi immaginari",
+                "years": [
+                    "1793"
+                ]
+            },
+            {
+                "name": "La cifra",
+                "years": [
+                    "1790"
+                ]
+            }
+        ]
+    },
+    {
+        "id": "Detmold",
+        "title": "Detmold",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                8.86557697748835,
+                51.938107304713085
+            ]
+        },
+        "opere": [
+            {
+                "name": "Il crociato in Egitto",
+                "years": [
+                    "1833"
+                ]
+            },
+            {
+                "name": "Le nozze di Figaro",
+                "years": [
+                    "1829"
+                ]
+            },
+            {
+                "name": "Una cosa rara",
+                "years": [
+                    "1827"
+                ]
+            }
+        ]
+    },
+    {
+        "id": "Carskoe Selo",
+        "title": "Carskoe Selo",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                30.394503192438187,
+                59.717338594828114
+            ]
+        },
+        "opere": [
+            {
+                "name": "Il Demetrio",
+                "years": [
+                    "1779"
+                ]
+            }
+        ]
+    },
+    {
+        "id": "Firenze",
+        "title": "Firenze",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                11.175485712359881,
+                43.79889113503871
+            ]
+        },
+        "opere": [
+            {
+                "name": "Il finto principe",
+                "years": [
+                    "1775"
+                ]
+            },
+            {
+                "name": "Il matrimonio per inganno",
+                "years": [
+                    "1779"
+                ]
+            },
+            {
+                "name": "L' Avaro",
+                "years": [
+                    "1777"
+                ]
+            },
+            {
+                "name": "La vanità delusa",
+                "years": [
+                    "1784"
+                ]
+            },
+            {
+                "name": "L'imbroglio delle tre spose",
+                "years": [
+                    "1781"
+                ]
+            }
+        ]
+    },
+    {
+        "id": "Graz",
+        "title": "Graz",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                15.31606928487744,
+                47.116779778085586
+            ]
+        },
+        "opere": [
+            {
+                "name": "Il geloso in cimento",
+                "years": [
+                    "1779"
+                ]
+            }
+        ]
+    },
+    {
+        "id": "Castelnuovo",
+        "title": "Castelnuovo",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                13.849914024134497,
+                42.627852563179594
+            ]
+        },
+        "opere": [
+            {
+                "name": "Il geloso in cimento",
+                "years": [
+                    "1785"
+                ]
+            }
+        ]
+    },
+    {
+        "id": "Salzburg",
+        "title": "Salzburg",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                12.95267781693314,
+                47.83156049437746
+            ]
+        },
+        "opere": [
+            {
+                "name": "Il re pastore",
+                "years": [
+                    "1775"
+                ]
+            }
+        ]
+    },
+    {
+        "id": "Regensburg",
+        "title": "Regensburg",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                12.0808368161296,
+                49.01331901352374
+            ]
+        },
+        "opere": [
+            {
+                "name": "Isabella e Rodrigo",
+                "years": [
+                    "1785"
+                ]
+            },
+            {
+                "name": "L' Avaro",
+                "years": [
+                    "1775"
+                ]
+            },
+            {
+                "name": "La buona figliuola",
+                "years": [
+                    "1778",
+                    "1782"
+                ]
+            },
+            {
+                "name": "La forza delle donne",
+                "years": [
+                    "1785"
+                ]
+            }
+        ]
+    },
+    {
+        "id": "Hannover",
+        "title": "Hannover",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                9.718960579772038,
+                52.3968341779847
+            ]
+        },
+        "opere": [
+            {
+                "name": "La buona figliuola",
+                "years": [
+                    "1777"
+                ]
+            }
+        ]
+    },
+    {
+        "id": "Bad Lauchstädt",
+        "title": "Bad Lauchstädt",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                11.842973944538112,
+                51.384459424082195
+            ]
+        },
+        "opere": [
+            {
+                "name": "La cifra",
+                "years": [
+                    "1793"
+                ]
+            }
+        ]
+    },
+    {
+        "id": "Karlsruhe",
+        "title": "Karlsruhe",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                8.388022471367961,
+                49.04464977777094
+            ]
+        },
+        "opere": [
+            {
+                "name": "La clemenza di Tito",
+                "years": [
+                    "1812"
+                ]
+            }
+        ]
+    },
+    {
+        "id": "London",
+        "title": "London",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -0.1982040265378188,
+                51.538903154609834
+            ]
+        },
+        "opere": [
+            {
+                "name": "La finta giardiniera",
+                "years": [
+                    "1775"
+                ]
+            },
+            {
+                "name": "La locanda",
+                "years": [
+                    "1791"
+                ]
+            },
+            {
+                "name": "La scuola dei maritati",
+                "years": [
+                    "1795"
+                ]
+            }
+        ]
+    },
+    {
+        "id": "Udine",
+        "title": "Udine",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                13.179066927928623,
+                46.094146455223594
+            ]
+        },
+        "opere": [
+            {
+                "name": "La scuola dei maritati",
+                "years": [
+                    "1800"
+                ]
+            }
+        ]
+    },
+    {
+        "id": "Potsdam",
+        "title": "Potsdam",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                13.057396980969225,
+                52.39157672404678
+            ]
+        },
+        "opere": [
+            {
+                "name": "Le nozze di Figaro",
+                "years": [
+                    "1790"
+                ]
+            }
+        ]
+    },
+    {
+        "id": "Vicenza",
+        "title": "Vicenza",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                11.524167338813312,
+                45.55128322864351
+            ]
+        },
+        "opere": [
+            {
+                "name": "L'Olimpiade",
+                "years": [
+                    "1784"
+                ]
+            },
+            {
+                "name": "Olimpiade",
+                "years": [
+                    "1784"
+                ]
+            }
+        ]
+    },
+    {
+        "id": "Faenza",
+        "title": "Faenza",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                11.877841835779298,
+                44.28995439047325
+            ]
+        },
+        "opere": [
+            {
+                "name": "Una cosa rara",
+                "years": [
+                    "1790"
+                ]
+            }
+        ]
+    }
+]

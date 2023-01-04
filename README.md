@@ -7,6 +7,28 @@
 ## Introduction
 The project carried out aims to display information relating to a collection of opera performances that took place throughout Europe between 1775 and 1833.
 
+```json
+{
+  "opera_performances": [
+    {
+      "rism_id": "125794",
+      "composer": "Paisiello, Giovanni",
+      "librettist": "Metastasio, Pietro",
+      "title": "Achille in Sciro",
+      "performance_year": "1778",
+      "placename": "Sankt Petersburg"
+    },
+    {
+      "rism_id": "101479",
+      "composer": "Mayr, Johann Simon",
+      "librettist": "Rossi, Gaetano",
+      "title": "Adelaide di Guesclino",
+      "performance_year": "1799",
+      "placename": "Venezia"
+    },
+    ...
+```
+
 Types of graphs used:
 * Map graphs
 * Force Directed graph
@@ -18,21 +40,9 @@ A second map graph shows only a few cities that hosted a opera that took place n
 The edges represent this common feature between the various cities in question.  
 
 ## Force Directed Graph
+The force directed graph aim to focus on reletionship between librettist and composer.
+Blu nodes reppresent composer, while orange nodes are librettist. These nodes are connected by edges if and only if they worked toghether at least one time, while edges color represent the first year that a librettist and a composer worked toghether.  
 
-### Domanda (da ridefinire)
-* esiste una relazione tra i librettisti e compositori che si sono esibiti nella stessa città?
-* tra questi c'è una collaborazione nel tempo?
 
-### Struttura del grafo
 
-#### Nodi
-* id: nome librettista o compositore
-* contengono :
-  * tipo: (librettista o compositore o entrambi)
-* colore: ogni nodo a un colore specifico che identifica il tipo in modo univoco.
-#### Archi NON diretti
-* contengono :
-  * opera: nome opera
-  * anno: anno della prima esibizione  dell'opera
-* colore: ogni arco è rappresentato con un colore specifico che identifica l'anno in modo univoco.
-* dimensione: gli archi tra librettisti sono di uno spessore più grande rispetto agli archi tra librettista e compositore.
+### Interactions

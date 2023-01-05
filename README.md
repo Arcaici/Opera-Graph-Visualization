@@ -62,6 +62,10 @@ The edges represent this common feature between the various cities in question.
 
 ![Map Graph](https://github.com/Arcaici/Opera-Graph-Visualization/blob/main/images/Map%20Graph.png)
 
+### Interactions
+When the mouse passes over the nodes, the name of the city appears. If you select a node, information on the names and years of the opera that took place in that city appears.  
+By clicking on the legend you have a focus on the individual opera, highlighting only the edges involved.
+
 ## Force Directed Graph
 The force directed graph aim to focus on reletionship between **librettist** and **composer**.
 Blu nodes reppresent composer, while orange nodes are librettist. These nodes are connected by edges if and only if they worked toghether at least one time, while edges color and thickness, represent respectively the first year that a librettist and a composer worked toghether and  the number of time that they worked toghether.  

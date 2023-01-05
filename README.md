@@ -52,13 +52,15 @@ Tecnologies:
 Libraries:
 * [Bootstrap v5.2](https://getbootstrap.com/docs/5.2/getting-started/introduction/)
 * [D3.js v7](https://d3js.org/)
-* [amChart v5](https://www.amcharts.com/)
+* [amCharts v5](https://www.amcharts.com/)
 
 ## Map Graphs
-The map graph aims to focus on the cities where the opera took place.
-The nodes represent the cities while the edges between two nodes are present if and only if a opera was performed in both cities (the source and destination are established on the basis of the year in which the opera took place in the two cities).
+The map graphs aims to focus on the cities where the opera took place.
+The **nodes represent the cities** while the edges between two nodes are present **if and only if** a opera was performed in both cities (the source and destination are established on the basis of the year in which the opera took place in the two cities).
 A second map graph shows only a few cities that hosted a opera that took place nowhere else. 
-The edges represent this common feature between the various cities in question.
+The edges represent this common feature between the various cities in question.  
+
+![Map Graph](https://github.com/Arcaici/Opera-Graph-Visualization/blob/main/images/Map%20Graph.png)
 
 ## Force Directed Graph
 The force directed graph aim to focus on reletionship between **librettist** and **composer**.

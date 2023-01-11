@@ -66,7 +66,7 @@ The edges represent this common feature between the various cities in question.
 When the mouse passes over the nodes, the name of the city appears. If you select a node, information on the names and years of the opera that took place in that city appears.  
 By clicking on the legend you have a focus on the individual opera, highlighting only the edges involved.  
 
-![Map Graph] <img src="https://github.com/Arcaici/Opera-Graph-Visualization/blob/main/images/Interaction_Map.png" width="105">  <img src="https://github.com/Arcaici/Opera-Graph-Visualization/blob/main/images/Interaction_Map2.png" width="105">
+<img src="https://github.com/Arcaici/Opera-Graph-Visualization/blob/main/images/Interaction_Map.png" width="105">  <img src="https://github.com/Arcaici/Opera-Graph-Visualization/blob/main/images/Interaction_Map2.png" width="105">
 
 ## Force Directed Graph
 The force directed graph aim to focus on reletionship between **librettist** and **composer**.
